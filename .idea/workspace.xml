@@ -2,12 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8dc7d650-e0bf-44a1-8f3d-2132e7cc0738" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/images/AJAX_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/AJAX_3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/AJAX_4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/~$AJAX.docx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BOM.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/BOM_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/BOM_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/BOM_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/BOM_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/~$BOM.docx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AJAX.md" beforeDir="false" afterPath="$PROJECT_DIR$/AJAX.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +47,7 @@
       <workItem from="1620465984523" duration="1478000" />
       <workItem from="1620467594486" duration="3000" />
       <workItem from="1620467739609" duration="1000" />
-      <workItem from="1620468040946" duration="2016000" />
+      <workItem from="1620468040946" duration="3556000" />
     </task>
     <servers />
   </component>
@@ -55,5 +56,11 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="702" y="234" key="RollbackChangesDialog" timestamp="1620470206175">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="702" y="234" key="RollbackChangesDialog/1680.0.1920.1080/0.0.1680.1050@0.0.1680.1050" timestamp="1620470206175" />
   </component>
 </project>
