@@ -169,7 +169,9 @@ function getViewportOffset() {
     }
 }
 ~~~~
-######（标准模式html文档最上方有<!DOCTYPE html>,没有就是怪异模式，用document.compatmode的返回值判断是标准模式还是怪异模式CSS1Compat是标准模式，BackCompat是怪异模式）
+~~~~
+标准模式html文档最上方有<!DOCTYPE html>,没有就是怪异模式，用document.compatmode的返回值判断是标准模式还是怪异模式CSS1Compat是标准模式，BackCompat是怪异模式）
+~~~~
 
 ##### ！4.location用于窗口或框架的Location对象和URL(全球统一资源定位符就是网址)
 ~~~~
