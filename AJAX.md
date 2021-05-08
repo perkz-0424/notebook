@@ -210,7 +210,7 @@ $.ajax需要注意的一些地方
 ~~~~
 
 
-######（1.$.ajax带json数据的异步请求）
+###### （1.$.ajax带json数据的异步请求）
 ~~~~javascript
 var aj = $.ajax( {  
     url:'productManager_reverseUpdate',//跳转到 action  
@@ -238,7 +238,7 @@ var aj = $.ajax( {
      }  
 });
 ~~~~
-######（2.$.ajax序列化表格内容为字符串的异步请求）
+###### （2.$.ajax序列化表格内容为字符串的异步请求）
 ~~~~javascript
 function noTips(){  
     var formParam = $("#form1").serialize( );//序列化表格内容为字符串a=1&b=2 
@@ -254,7 +254,7 @@ function noTips(){
 }  
 
 ~~~~
-######（3.$.ajax拼接url的异步请求）
+###### （3.$.ajax拼接url的异步请求）
 ~~~~javascript
 var yz=$.ajax({  
      type:'post',  
@@ -274,7 +274,7 @@ var yz=$.ajax({
       error:function(){}  
 }); 
 ~~~~
-######（4.$.ajax拼接data的异步请求）
+###### （4.$.ajax拼接data的异步请求）
 ~~~~javascript
 $.ajax({   
     url:'<%=request.getContextPath()%>/kc/kc_checkMerNameUnique.action',   
