@@ -1086,7 +1086,7 @@ return 负数
 });
 ~~~~
 ~~~~javascript
-第二步
+//第二步
 arr.sort(function(a,b){
 if(a-b>0){
 return a-b
