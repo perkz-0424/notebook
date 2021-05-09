@@ -2,11 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8dc7d650-e0bf-44a1-8f3d-2132e7cc0738" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/LESS.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Maven.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Aysnc.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Php.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Promise.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/Php_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/Php_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/Php_3.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LESS.docx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Maven.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PHP.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Promise.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/异步,时间线.docx" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +51,7 @@
       <workItem from="1620467594486" duration="3000" />
       <workItem from="1620467739609" duration="1000" />
       <workItem from="1620468040946" duration="17319000" />
-      <workItem from="1620536862893" duration="1218000" />
+      <workItem from="1620536862893" duration="4217000" />
     </task>
     <servers />
   </component>
@@ -57,6 +62,10 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="563" y="334" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1620540505526">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="563" y="334" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1680.1050@0.0.1680.1050" timestamp="1620540505526" />
     <state x="702" y="234" key="RollbackChangesDialog" timestamp="1620470206175">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
