@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8dc7d650-e0bf-44a1-8f3d-2132e7cc0738" name="Default Changelist" comment="" />
+    <list default="true" id="8dc7d650-e0bf-44a1-8f3d-2132e7cc0738" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/LESS.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Maven.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LESS.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Maven.docx" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -40,6 +46,7 @@
       <workItem from="1620467594486" duration="3000" />
       <workItem from="1620467739609" duration="1000" />
       <workItem from="1620468040946" duration="17319000" />
+      <workItem from="1620536862893" duration="1218000" />
     </task>
     <servers />
   </component>
