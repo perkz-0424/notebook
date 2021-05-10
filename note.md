@@ -10,7 +10,4 @@ document.documentElement.clientWidth页面dom宽度
 react在新页面跳转用window.open
 排序arr.sort((a,b)=>{return a.s-b.s})
 用scroll({ top: elOffsetTop, behavior: "smooth" });代替el.scrollIntoView({ behavior: "smooth" });滚动条滚动到可视区域
-~~~~
-![img](./images/note.png)­­­­ 
-~~~~
 监听esc键盘事件用不用onkeydown，onkeyup，onkeypress，用onresize去监听
