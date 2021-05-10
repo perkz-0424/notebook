@@ -2,11 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8dc7d650-e0bf-44a1-8f3d-2132e7cc0738" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Node.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/RegExp.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ReactNative.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SelectAndOption.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TypeScript.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/git.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/SelectAndOption_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/SelectAndOption_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/git_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/git_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/git_3.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NodeJs.docx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RegExp.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/React_native.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Select对象和Option对象.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TypeScript.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/git.docx" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +56,7 @@
       <workItem from="1620467739609" duration="1000" />
       <workItem from="1620468040946" duration="17319000" />
       <workItem from="1620536862893" duration="4558000" />
-      <workItem from="1620607758168" duration="1419000" />
+      <workItem from="1620607758168" duration="4061000" />
     </task>
     <servers />
   </component>
