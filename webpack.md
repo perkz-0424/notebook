@@ -599,7 +599,7 @@ npm install --save uglifyjs-webpack-plugin
 ~~~~ 
 
 ##### 2.配置
-~~~~
+~~~~javascript
 let path = require('path');
 //抽离css文件
 let MiniCssExtractPlugin = require('mini-css-extract-plugin');
