@@ -1292,170 +1292,232 @@ Redirect：路由重定向
 ![img](./images/React/86.png) 
 
 #### 三十四.路由懒加载，按需加载，代码分割
-方式一
-自己制作异步函数组件
- 
- t
-把所有页面都这样
- 
+##### 方式一
+###### 自己制作异步函数组件
+![img](./images/React/87.png) 
 
-方式二
+![img](./images/React/88.png)
+
+###### 把所有页面都这样
+![img](./images/React/89.png) 
+
+##### 方式二
+~~~~
 用lazy和suspnse
+~~~~
 
-三十五.路由嵌套（主路由和子路由嵌套）
+#### 三十五.路由嵌套（主路由和子路由嵌套）
+~~~~
 主要用于类似选项卡的功能，但与选项卡不同，切换后的路由是发生变化的
+~~~~
+~~~~
 利用的是模糊匹配，也就是说不能加exact
 比如在新闻页面里写，路由一定要写在选项的下面
- 
-Redirect让进入页面就显示在star处
+~~~~
+![img](./images/React/90.png)  
+
+###### Redirect让进入页面就显示在star处
 
 
-三十六.子路由实现页面跳转withRouter
+#### 三十六.子路由实现页面跳转withRouter
+~~~~
 也就是将我们的ul li封装到组件里，然后通过组件引入
 封装进组件，那么history就会没有，此时就需要用到withRouter
- 
-无状态
- 
+~~~~
+![img](./images/React/91.png) 
 
-三十七.路由认证（也就是没有登录的时候，不能进入用户界面，返回到登录页面，登录以后不退出，就不会退回登录页面）
+##### 无状态
+![img](./images/React/92.png) 
 
-路由认证组件
+#### 三十七.路由认证（也就是没有登录的时候，不能进入用户界面，返回到登录页面，登录以后不退出，就不会退回登录页面）
+##### 路由认证组件
+![img](./images/React/93.png)  
+
+###### 意思是如果islogin是true，表示正常登录，不是真就返回到login页面，并表示出从哪个页面恶意进入
+![img](./images/React/94.png)  
+
+![img](./images/React/95.png) 
  
-意思是如果islogin是true，表示正常登录，不是真就返回到login页面，并表示出从哪个页面恶意进入
- 
- 
-路由重定向
+###### 路由重定向
+![img](./images/React/96.png) 
 
-
-三十八.hash模式和history的区别
-上面用到都是hash模式带#
-
+#### 三十八.hash模式和history的区别
+###### 上面用到都是hash模式带#
+~~~~
 history在开发者环境下，f5刷新没有问题
 生产环境下（build之后的apache环境下）就会报错，报错没有找到文件
 需要配置webpack去处理这个问题config下的paths文件（老版本）
- 
+~~~~ 
+![img](./images/React/97.png) 
+
+~~~~
 新版本在package.json配置
 增加一个homepage
- 
+~~~~ 
+![img](./images/React/98.png) 
+
+~~~~
 加了以后不报错但不显示东西
 接下来吧路由里的路径都加上/reactdemo去匹配
 但是f5刷新还是有问题，需要重定向
 没有特定要求最好用hash，比较麻烦，有些事为了安全性就强制删除#这个时候就需要用history
+~~~~
 
-四十.redux（跨组件、跨页面传值（及时的，不需要刷新），但临时存储数据）（刷新数据就没了，所以需要和Local Storage和Session Storage配合）
+#### 四十.redux（跨组件、跨页面传值（及时的，不需要刷新），但临时存储数据）（刷新数据就没了，所以需要和Local Storage和Session Storage配合）
+~~~~
 redux的基本思想是整个应用的state（数据源）保持在一个单一的store中，store就是一个简单的JavaScript对象，而改变应用state的唯一方式是在应用中触发actions，然后编写reducers来修改state，整个state转化是在reducers中完成，并且不应该有任何副作用
 redux安装（装两个插件）
 npm install redux --save
 npm install react-redux --save
-
+~~~~
+~~~~
 redux流程
 1.选购商品
 2.商品装车
 3.存入仓库
 4.从仓库获取商品
+~~~~
 
-使用基本步骤
-（1）把数据装进去
- 
-（2）把数据存入到reducers
- 
+##### 使用基本步骤
+###### （1）把数据装进去
+![img](./images/React/99.png)  
 
-（3）取数据
- 
+###### （2）把数据存入到reducers
+![img](./images/React/100.png) 
 
-（4）数据更新 触发actions，因为返回的是state是引用值，所以需要对值进行浅拷贝
- 
+###### （3）取数据
+![img](./images/React/101.png)  
 
-（5）其他组件使用
- 
+###### （4）数据更新 触发actions，因为返回的是state是引用值，所以需要对值进行浅拷贝
+![img](./images/React/102.png)  
 
-（6）多个数据源存入reducers
+###### （5）其他组件使用
+![img](./images/React/103.png)  
+
+###### （6）多个数据源存入reducers
+~~~~
 如果不在本组件内读取数据只存入数据（只写不读）
- 
+~~~~ 
+![img](./images/React/104.png) 
 
-（7）资源整合
+###### （7）资源整合
+![img](./images/React/105.png) 
  
-（8）因为多了一个key，所以引用的时候就会发生变化
- 
+###### （8）因为多了一个key，所以引用的时候就会发生变化
+![img](./images/React/106.png)  
 
-（9）local storage也从store里取
- 
+###### （9）local storage也从store里取
+![img](./images/React/107.png)  
 
-（10）关联local storage
- 
+###### （10）关联local storage
+![img](./images/React/108.png)  
 
-（11）安全退出，清空reducers和local storage
+###### （11）安全退出，清空reducers和local storage
+![img](./images/React/109.png)  
  
- 
+![img](./images/React/110.png) 
 
-（12）封装组件（避免了太杂乱）
+###### （12）封装组件（避免了太杂乱）
+![img](./images/React/111.png) 
  
-1.创建数据源
+##### 1.创建数据源
+![img](./images/React/112.png) 
  
-2.打包数据，将数据放入仓库
+##### 2.打包数据，将数据放入仓库
+![img](./images/React/113.png) 
  
-3.使用数据和修改数据
- 
-四十一.redux-thunk（解决dispatch性能问题，用于异步数据流）
+##### 3.使用数据和修改数据
+![img](./images/React/114.png) 
+
+#### 四十一.redux-thunk（解决dispatch性能问题，用于异步数据流）
+~~~~
 用于延迟action的派发（dispatch），这可以处理异步action的派发（dispatch）
-安装：
+~~~~
+##### 安装：
+~~~~
 npm install --save-dev redux-thunk
-配置：
+~~~~
+##### 配置：
+![img](./images/React/115.png) 
  
-使用（需要axios配合，所以暂时用不到getState）：
- 
+###### 使用（需要axios配合，所以暂时用不到getState）：
+![img](./images/React/116.png)  
 
-四十二.axios
+#### 四十二.axios
+~~~~
 1.axios是一款基于promise封装的库，可以运行在浏览器端和node环境中vue官方开发组放弃了对齐官方库vue-resource的维护，直接推荐我们使用axios库
+~~~~
+~~~~
 2.使用：
 （1）get请求
 （2）post请求
 （3）使用URLSearchParams或qs做post提交处理
 （4）图片提交
-
+~~~~
+~~~~
 3.安装
 npm install --save axios
-
+~~~~
+~~~~
 4.使用
 （1）页面加载完发送请求请求（get请求，get可以省略）
 http://vueshop.glbuys.com/api/home/index/nav?token=1ec949a15fb709370f
- 
-请求得到的数据
- 
+~~~~
+![img](./images/React/117.png)  
 
+###### 请求得到的数据
+![img](./images/React/118.png) 
+
+~~~~
 （2）post提交（提交登录的账户名和密码去后台）
 （先判断接口是否有问题，使用postman测试）下面是提交json格式
- 
-
+~~~~ 
+![img](./images/React/119.png) 
+~~~~
 （3）如果后端需要的数据不是json格式而是表单提交的格式，这个时候需要转
- 
- 
-这就是从后台拿到的数据
+~~~~ 
+![img](./images/React/120.png) 
 
+![img](./images/React/121.png)  
+
+###### 这就是从后台拿到的数据
+~~~~
 （4）转格式兼容IE
 安装 npm install url-search-params-polyfill --save
 在入口页面导入 我们最终的入口文件index.js
+~~~~
+![img](./images/React/122.png)
  
-
+~~~~
 （5）判断能否登录的条件（13717628483）
- 
+~~~~ 
+![img](./images/React/123.png) 
 
+~~~~
 （6）图片上传
- 
- 
+~~~~ 
+![img](./images/React/124.png) 
 
+![img](./images/React/125.png) 
+ 
+~~~~
 （7）进度条
- 
+~~~~ 
+![img](./images/React/126.png) 
 
+~~~~
 （8）axios封装，post使用率高但比较繁琐
- 
+~~~~ 
+![img](./images/React/127.png) 
 
-四十三.fetch（IE不支持）
+#### 四十三.fetch（IE不支持）
+~~~~
 如果需要支持
 安装：npm install whatwg-fetch -save
 引入：import {fetch} from 'whatwg-fetch';
 如果不需要兼容，那么不需要引入，直接用fetch
 所得数据是json格式就调用json()，html就调用html()
+~~~~
 （1）get
  
 
