@@ -1205,29 +1205,37 @@ className={fade}不能用css模块化
 TransitionGroup可以实现多个元素的增删
 ~~~~
 #### 三十二.路由原理
-
-路由实现页面跳转，react-router和react-router-dom
-1.react-router:实现路由的核心功能
-2. react-router-dom:
+##### 路由实现页面跳转，react-router和react-router-dom
+##### 1.react-router:实现路由的核心功能
+##### 2. react-router-dom:
+~~~~
 （1）基于react-router，加入了在浏览器运行环境的一些功能，例如link组件，会渲染一个a标签，路由模式分为BrowserRouter(history)(不带#)和HashRouter(带#)
 （2）BrowserRouter使用pushState和popstate事件构建路由
 （3）HashRouter使用window.localion.hash和hashchange事件构建路由
+~~~~
+##### 3.手写路由
 
-3.手写路由
-（1）hash的push方法，存在历史记录
- 
-（2）hash的replace写法，没有历史记录
- 
-（3）history的push方法
- 
-（4）history的replace方法
- 
-（5）由于history会存在404问题，需要重写
-在文件的更目录配置
- 
+###### （1）hash的push方法，存在历史记录
+![img](./images/React/65.png)  
 
-三十三. react-router-dom
+###### （2）hash的replace写法，没有历史记录
+![img](./images/React/66.png)
+ 
+###### （3）history的push方法
+![img](./images/React/67.png)
+ 
+###### （4）history的replace方法
+![img](./images/React/68.png)
+ 
+###### （5）由于history会存在404问题，需要重写
+###### 在文件的更目录配置
+![img](./images/React/69.png) 
+
+#### 三十三. react-router-dom
+~~~~
 安装npm install --save-dev react-router-dom
+~~~~
+~~~~
 这个时候就不需要App.js，改成router.js，在pages文件夹里面写页面
 HashRouter：有#
 BrowserRouter：没有#（存在一定的问题）
@@ -1236,47 +1244,54 @@ Switch：只要匹配到一个地址就不会在往下匹配
 Link：跳转页面
 exact：完全匹配路由
 Redirect：路由重定向
+~~~~
+##### 1.router.js配置路由固定组件格式
+![img](./images/React/70.png)  
+###### 上面就把写在pages里的首页配置到了路由里
 
-1.router.js配置路由固定组件格式
- 
-上面就把写在pages里的首页配置到了路由里
+##### 2.配置多个路由
+![img](./images/React/71.png)  
 
-2.配置多个路由
- 
+##### 3.首页跳转其他页面
+![img](./images/React/72.png)  
 
-3.首页跳转其他页面
+##### 4.传参数方式一（基本不用）
+![img](./images/React/73.png)
  
+![img](./images/React/74.png)  
 
-4.传参数方式一（基本不用）
- 
+![img](./images/React/75.png) 
 
- 
+![img](./images/React/76.png)  
 
- 
- 
+###### 如果是在constructor里则需要传入props
+![img](./images/React/77.png)  
 
-如果是在constructor里则需要传入props
+##### 5.传参方式二（当前页面刷新不能获取参数）
+![img](./images/React/78.png)
  
-5.传参方式二（当前页面刷新不能获取参数）
- 
- 
- 
- 
+![img](./images/React/79.png)
 
-6.自定义一个获取需要参数的方法（用于当前页面刷新也能获取参数）
- 
+![img](./images/React/80.png)
 
- 
+![img](./images/React/81.png)
 
- 
-7.转码用decodeURIComponent()
+##### 6.自定义一个获取需要参数的方法（用于当前页面刷新也能获取参数）
+![img](./images/React/82.png) 
 
-8.传参方式三（这是最好的传参方式）
- 
-9.返回
- 
+![img](./images/React/83.png) 
 
-三十四.路由懒加载，按需加载，代码分割
+![img](./images/React/84.png)
+ 
+##### 7.转码用decodeURIComponent()
+
+##### 8.传参方式三（这是最好的传参方式）
+![img](./images/React/85.png) 
+
+##### 9.返回
+![img](./images/React/86.png) 
+
+#### 三十四.路由懒加载，按需加载，代码分割
 方式一
 自己制作异步函数组件
  
