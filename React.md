@@ -54,21 +54,30 @@ function App() {
 }
 ~~~~
  
-所有的a标签都要加noopener noreferrer
+###### 所有的a标签都要加noopener noreferrer
+~~~~html
 <a href="https://reactjs.org" target="_blank" rel="noopener noreferrer" > Learn React </a>
+~~~~
+~~~~
 noopener 一般都是搭配target="_blank"同时使用，因为target="_blank"也是一个安全漏洞：新的页面可以通过window.opener访问窗口对象，并且可以使用window.opener.location = newURL 将网址导航至不同的网址，新页面将于自己的页面处于同一进程上运行，如果新页面正在执行大的JavaScript，自己的页面性能会受影响
 noreferrer属性则是为了兼容旧版本的浏览器，功能是一样的
 简单说就是防止钓鱼网站
+~~~~
 
-三.react官方脚手架
-1.初始项目结构
+#### 三.react官方脚手架
+##### 1.初始项目结构
  
+![img](./images/React/3.png)
 
-2.报错提示
+##### 2.报错提示
+
+~~~~
 释放出webpack.config.js后npm run start会报ReferenceError: React is not defined错误，
 修正方法
 在webpack.config.js文件的400行左右加
- 
+~~~~
+
+~~~~js 
 presets: [
     [
         require.resolve('babel-preset-react-app'),
@@ -76,74 +85,195 @@ presets: [
            runtime: hasJsxRuntime ? 'automatic' : 'classic',
         }
     ]
-],
-¬¬¬¬¬
-四.JSX（面试）
+]
+~~~~
+
+![img](./images/React/4.png)
+
+#### 四.JSX（面试）
+~~~~
 JSX是一种JavaScript的一种语法扩展，并拥有JavaScript的全部功能
 JSX生产React元素，你可以将任何的JavaScript表达式封装在花括号里，然后将其嵌入搭配JSX中。在编译之后，JSX表达式就变成了常规的JavaScript对象，这意味着可以在if语句和for循环里使用JSX，将它赋值给变量，接受它作为参数，并从函数中返回它，利用JSX实现虚拟DOM
+~~~~
+~~~~jsx
 var React = require('react');
 var ReactDOM = require('react-dom');
-class Index exdends React.Component{
+class Index extends React.Component{
    render(){
-   var name = 'tom';
-   return(
-   <div>z
-      Hello {name}!
-   </div>
-)
-}
+     const name = "Tom"
+     return (
+        <div>
+           Hello {name}!
+        </div>
+     )
+   }
 }
 ReactDom.render(<Inder/>,document.getElementById('app'));
-五.index.html（总入口文件）
+~~~~
+
+#### 五.index.html（总入口文件）
+
+###### %PUBLIC_URL%模板引擎，代表公共路径，默认寻找站点的根目录，这里就是相当于/，因为图片和index.html处在一个文件夹，后面是网站图标文件
+~~~~html
 <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-%PUBLIC_URL%模板引擎，代表公共路径，默认寻找站点的根目录，这里就是相当于/，因为图片和index.html处在一个文件夹，后面是网站图标文件
-
+~~~~
+###### 移动端适配
+~~~~html
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-移动端适配
-
+~~~~
+###### 格式化电话邮件等等，不会再发生自动识别出现a标签
+~~~~html
 <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
-格式化电话邮件等等，不会再发生自动识别出现a标签
-
+~~~~
+###### 主题颜色
+~~~~html
 <meta name="theme-color" content="#000000" />
-主题颜色
-
+~~~~
+###### 关闭ie的兼容性模式
+~~~~html
 <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-关闭ie的兼容性模式
-
+~~~~
+###### 图标添加到桌面
+~~~~html
 <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-图标添加到桌面
-
+~~~~
+###### 图标添加到桌面，会根据设备添加不同的尺寸
+~~~~html
 <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-图标添加到桌面，会根据设备添加不同的尺寸
+~~~~
 
 
-六.重新配置
-1.在src里新建文件夹pages和文件夹assets，pages放路由文件，assets放资源文件，包括组件，css等文件
+
+#### 六.重新配置
+
+##### 1.在src里新建文件夹pages和文件夹assets，pages放路由文件，assets放资源文件，包括组件，css等文件
+~~~~
 将不需要的App.css和图标文件删除
 入口文件App.js
 删除初始样式的内容
- 
-2.在assets文件夹中创建css文件夹，在css文件夹里创建common文件夹，创建public.css，将index.css里的公共样式复制到public.css里，再添加一部分公共样式在里面
- 
-3.删除index.css文件，修改index.js里css的引用
- 
+~~~~
 
-4.将App.js从无状态组件改成有状态组件
- 
+~~~~jsx
+import React from "react";
 
-5.在src文件夹里新建components，这是用来放所有组件文件夹（一个组件文件夹对象一个index.js文件），再在里面创建header文件夹（组件文件夹），创建组件文件index.js
+function App() {
+  return(
+    <div>
+       ...
+    </div>
+  )  
+}
+~~~~
  
-引入到入口App.js
- 
+##### 2.在assets文件夹中创建css文件夹，在css文件夹里创建common文件夹，创建public.css，将index.css里的公共样式复制到public.css里，再添加一部分公共样式在里面
+~~~~css
+html,body{
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+code{
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+~~~~
+
+##### 3.删除index.css文件，修改index.js里css的引用
+~~~~jsx
+import React from "react";
+import ReactDom from "react-dom";
+import "./css";
+import App from  "./App";
+import reportWebVitals from "./reportWebVitals"
+~~~~ 
+
+##### 4.将App.js从无状态组件改成有状态组件
+~~~~jsx
+import React from "react";
+
+class App extends React.Component{
+   render(){
+     return (
+        <div className="App">
+           ...
+        </div>
+     )
+   }
+}
+export default App
+~~~~
+##### 5.在src文件夹里新建components，这是用来放所有组件文件夹（一个组件文件夹对象一个index.js文件），再在里面创建header文件夹（组件文件夹），创建组件文件index.js
+
+~~~~jsx
+import React from "react";
+
+class Header extends React.Component{
+   render(){
+     return (
+        <div id="header">
+           ...
+        </div>
+     )
+   }
+}
+export default Header
+~~~~ 
+###### 引入到入口App.js
+~~~~jsx
+import React from "react";
+import Header from "./components/header";
+
+class App extends React.Component{
+   componentDidMount() {
+      //获取h2的方法
+      //方法一:
+      console.log(this.refs["react"]);
+      //方法二:
+      console.log(this.refs.react);
+   }
+   render(){
+     var content ="<span style = 'color:#ff0000'>jack&nbsp;lee</span>"
+     return (
+        <div className="App">
+           <Header/>
+           <h2 ref="react" style={{color: "#F40"}}>react study</h2>
+           <div dangerouslySetInnerHTML={{_html: content}}/>
+        </div>
+     )
+   }
+}
+export default App
+~~~~ 
 
 
-七.让JSX能认识HTML标签
+#### 七.让JSX能认识HTML标签
+~~~~
 var content ="<span style = 'color:#ff0000'>jack&nbsp;lee</span>"
 <div dangerouslySetInnerHTML={{__html:content}}></div>
- 
+~~~~
+~~~~jsx
+import React from "react";
 
-八.Ref的使用 获取DOM（只能获取本组件的DOM）
+class App extends React.Component{
+   render(){
+     var content ="<span style = 'color:#ff0000'>jack&nbsp;lee</span>"
+     return (
+        <div className="App">
+           <div dangerouslySetInnerHTML={{_html: content}}/>
+        </div>
+     )
+   }
+}
+export default App
+~~~~
+
+#### 八.Ref的使用 获取DOM（只能获取本组件的DOM）
+~~~~
 document.getElementsById 也能获取
+~~~~
+~~~~jsx
 import React from 'react';
 
 class App extends React.Component {
@@ -166,19 +296,44 @@ class App extends React.Component {
   }
 }
 export default App;
+~~~~
 
-九.虚拟DOM（正常获取DOM，会获取DOM各种属性方法，开销太大）
+#### 九.虚拟DOM（正常获取DOM，会获取DOM各种属性方法，开销太大）
+~~~~
 导入 import ReactDom from 'react-dom';
+~~~~
+~~~~jsx
+import React from "react";
+import ReactDom from "react-dom";
+
+class App extends React.Component{
+   componentDidMount() {
+      let h = ReactDom.findDomNode(document.getElementById("react"))
+   }
+   render(){
+     return (
+        <div className="App">
+           <h2 id="react" style={{color: "#F40"}}>react study</h2>
+        </div>
+     )
+   }
+}
+export default App
+~~~~
  
-获取DOM的速度非常快
-虚拟DOM的原理：
+##### 获取DOM的速度非常快
+###### 虚拟DOM的原理：
+~~~~
 虚拟DOM相当于在js和真实dom中间加了一个缓存，将真实dom转化为json对象，利用dom diff算法避免了没必要的都没操作，从而提高性能
 一个diff函数有两个参数一个真实DOM一个是虚拟DOM，使用递归对：组件，文本节点，非文本DOM节点，属性作比较，如果相同，不更新，如果不相同则更新
 对比子节点：子节点和之前的不同，子节点是一个数组，它们可能改变了顺序，或者数量有所变化，我们很难确定要虚拟DOM哪一个做对比。所以我们要给他设置key，如果有key使用key查找子节点的值（高性能），如果没有key则按照DOM类型查找（低性能）
+~~~~
 
-十.实现虚拟DOM的方法（面试）
-使用v6版本的Babel编译器，识别jsx
-<script src="./js/babel.min.js"></script>
+#### 十.实现虚拟DOM的方法（面试）
+
+##### 使用v6版本的Babel编译器，识别jsx
+~~~~html
+    <script src="./js/babel.min.js"></script>
     <script type="text/babel">
         //下面的@jsx的babel自执行指令
         /*@jsx createElement*/
@@ -240,6 +395,7 @@ export default App;
         let dom = render(vDom);//将虚拟dom转化成真实dom的方法render()
         document.body.appendChild(dom);
     </script>
+~~~~
 
 十一.react diff算法（面试）
 虚拟DOM的原理：
