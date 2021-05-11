@@ -1060,81 +1060,103 @@ export default Login;
 ![img](./images/React/32.png) 
 
 #### 二十九.HOOKS（useState，useEffect，useReducer，useContext）
-
+~~~~
 由于组件时复杂的容器（class）希望变得简单，
 Hooks可以让无状态组件实现有状态组件的部分功能，比如设置state，使用构造函数（生命周期）：componentDidMount
 就不用类了，改用函数
-
-1.const [title,setTitle]=useState("首页")
+~~~~
+##### 1.const [title,setTitle]=useState("首页")
+~~~~
 相当于
 有状态组件里的
 constructor() {
     super()
-this.state = {
-   title: "首页"
+    this.state = {
+       title: "首页"
     }
- }
- 
+}
+~~~~ 
+![img](./images/React/33.png) 
 
-2.setTitle就是相当于有状态组件里的 setState({})
-3.不是类就不用this了
- 
+##### 2.setTitle就是相当于有状态组件里的 setState({})
 
-4.查看改变以后的title，useEffect相当于是render函数，需要useState去触发，相当于componentDidMount和componentDidUpdate的结合，但是这两是同步的，而useEffect是异步的
+##### 3.不是类就不用this了
+
+![img](./images/React/34.png) 
+
+#####  4.查看改变以后的title，useEffect相当于是render函数，需要useState去触发，相当于componentDidMount和componentDidUpdate的结合，但是这两是同步的，而useEffect是异步的
+~~~~
 只有在useEffect里才能监听到实时改变的title值
- 
+~~~~ 
+![img](./images/React/35.png) 
 
-5.直接获取dom
+##### 5.直接获取dom
+~~~~
 document.title=title
- 
+~~~~ 
+![img](./images/React/36.png)
 
-6.页面离开是，就在useEffect里return一个函数用于解除事件
- 
-7.优化，在useEffect函数里加入第二个参数（数组），如果再useEffect里使用了title就在数组里加title，避免了渲染所有变量，数组是告诉函数，值针对数组里的值改变才执行第一个参数（函数）
- 
+##### 6.页面离开是，就在useEffect里return一个函数用于解除事件
+![img](./images/React/37.png) 
 
-8.useReducer（跨组件传值（不限于父子组件），共享通讯）
+##### 7.优化，在useEffect函数里加入第二个参数（数组），如果再useEffect里使用了title就在数组里加title，避免了渲染所有变量，数组是告诉函数，值针对数组里的值改变才执行第一个参数（函数） 
+![img](./images/React/38.png)
+
+##### 8.useReducer（跨组件传值（不限于父子组件），共享通讯）
+~~~~
 React本身不提供状态管理功能，通常需要使用外部库，这方面最常用的库时Redux
 Redux的核心概念是，组件发出action与状态管理收到action以后，使用Reducer函数算出新状态，Reducer函数的形式是（state，action）=> newState
-（1）.做一个跨组件的计数器
+~~~~
+###### （1）.做一个跨组件的计数器
+![img](./images/React/39.png)
  
-（2）.建一个装计数器的方法
+###### （2）.建一个装计数器的方法
+![img](./images/React/40.png)
  
-（3）.导入刚刚创建的计数器方法，并使用
+###### （3）.导入刚刚创建的计数器方法，并使用
+![img](./images/React/41.png)
  
-（4）.把值插入到组件
- 
-（5）++的点击事件，dispatch写法是固定格式
- 
+###### （4）.把值插入到组件
+![img](./images/React/42.png) 
 
-（6）.dispatch点击事件后就会把值传给action
- 
+###### （5）++的点击事件，dispatch写法是固定格式
+![img](./images/React/43.png) 
 
-（7）.把action里的更新的值有赋给state里，并把引用类型的state浅拷贝深拷贝都可以，因为引用类型传的是地址，如果地址没变就没法触发
- 
+###### （6）.dispatch点击事件后就会把值传给action
+![img](./images/React/44.png) 
 
-（8）或者合并写法
+###### （7）.把action里的更新的值有赋给state里，并把引用类型的state浅拷贝深拷贝都可以，因为引用类型传的是地址，如果地址没变就没法触发
+![img](./images/React/45.png) 
+
+###### （8）或者合并写法
+![img](./images/React/46.png)
  
-（9）共享通讯，新建一个组件，导入
- 
- 
-（10）再新建文件夹，创建上下文解决多个组件共享传值
+###### （9）共享通讯，新建一个组件，导入
+![img](./images/React/47.png) 
+
+![img](./images/React/48.png) 
+
+###### （10）再新建文件夹，创建上下文解决多个组件共享传值
+~~~~jsx
 export const ReactContext = React.createContext();
+~~~~ 
+![img](./images/React/49.png)
+
+###### （11）导入后用于包裹组件，共享的值是state和dispatch
+![img](./images/React/50.png) 
+
+###### （12）其他组件接受值
+![img](./images/React/51.png) 
+
+###### （13）补全减
+![img](./images/React/52.png) 
+
+![img](./images/React/53.png)
  
 
-（11）导入后用于包裹组件，共享的值是state和dispatch
- 
+###### （14）同步计数
+![img](./images/React/54.png)
 
-（12）其他组件接受值
- 
-
-（13）补全减
- 
- 
-
-（14）同步计数
- 
-————————————————————————————————————————————————————————
 数据贡献的步骤
 1.创建数据源
  
