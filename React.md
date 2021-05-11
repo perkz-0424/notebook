@@ -1518,81 +1518,103 @@ http://vueshop.glbuys.com/api/home/index/nav?token=1ec949a15fb709370f
 如果不需要兼容，那么不需要引入，直接用fetch
 所得数据是json格式就调用json()，html就调用html()
 ~~~~
-（1）get
- 
+##### （1）get
+ ![img](./images/React/128.png)
 
-（2）post
-（这里是后端接受表单提交格式，如果后端接受json数据，那么header不用写）
- 
+##### （2）post
+###### （这里是后端接受表单提交格式，如果后端接受json数据，那么header不用写）
+![img](./images/React/129.png) 
 
-四十四.ajax的跨域（代理）
+#### 四十四.ajax的跨域（代理）
+~~~~
 只要不符合同源策略，都会存在跨域问题（同源：同协议，同域名，同端口）
 如果后端同意跨域，将会存在安全性问题
-（可以解决）1.解决方式一（package.json）：
+~~~~
+##### （可以解决）1.解决方式一（package.json）：
+~~~~
 配置webpackDevsServer.config.js里的proxy（不用动）
 引导找到调用源（start.js）
 在package.json里添加如下，添加什么域名就能跨域什么域名
- 
-之后ajax的时候就不用加域名
- 
+~~~~
+![img](./images/React/130.png)  
 
-2.解决方式二（http-proxy-middleware）
+###### 之后ajax的时候就不用加域名
+![img](./images/React/131.png) 
+
+##### 2.解决方式二（http-proxy-middleware）
+~~~~
 步骤
 （1）在src文件夹下创建setupProxy.js
 因为paths.js配置好了，所以必须叫setupProxy.js（如果paths里改了，文件名也跟着改）
 （2）自制node配置文件
- 
- 
+~~~~ 
+![img](./images/React/132.png) 
 
-3.解决方式三（直接在webpack里配）找到webpackDevsServer.config.js
- 
-————————————————————————————
- 
- 
-4.判断是测试环境还是正式环境（基于解决方式三），正式环境必须把localhost改成vueshop.glbuys.com
-利用process.env.NODE_ENV去检测是开发者环境还是正式上线环境
- 
+![img](./images/React/133.png)
 
- 
+##### 3.解决方式三（直接在webpack里配）找到webpackDevsServer.config.js
+![img](./images/React/134.png)
 
-四十一（2）.redux-thunk（解决dispatch性能问题，用于异步数据流）
+![img](./images/React/135.png) 
+
+![img](./images/React/136.png) 
+
+##### 4.判断是测试环境还是正式环境（基于解决方式三），正式环境必须把localhost改成vueshop.glbuys.com
+###### 利用process.env.NODE_ENV去检测是开发者环境还是正式上线环境
+![img](./images/React/137.png) 
+
+![img](./images/React/138.png) 
+
+#### 四十一（2）.redux-thunk（解决dispatch性能问题，用于异步数据流）
+~~~~
 axios获取的数据，先将数据异步存储到redux，避免可重复axios，获取一个然后就可以调用redux里的数据
 用于延迟action的派发（dispatch），这可以处理异步action的派发（dispatch）
 安装：
 npm install --save-dev redux-thunk
+~~~~
+![img](./images/React/139.png) 
  
-------
- 
-------
- 
-------
- 
-------
- 
-------
- 
-1.创建数据源
- 
- 
-2.数据打包并放入仓库
- 
-3.数据的调用和更新
- 
- 
+![img](./images/React/140.png) 
 
-四十五.redux-saga（目的还是把值存到reducer里）(多用于无状态组件Hoocs)
+![img](./images/React/141.png)  
+
+![img](./images/React/142.png) 
+
+![img](./images/React/143.png) 
+
+![img](./images/React/144.png) 
+ 
+##### 1.创建数据源
+![img](./images/React/145.png) 
+
+![img](./images/React/146.png) 
+ 
+##### 2.数据打包并放入仓库
+![img](./images/React/147.png) 
+ 
+##### 3.数据的调用和更新
+![img](./images/React/148.png)  
+ 
+![img](./images/React/149.png) 
+
+#### 四十五.redux-saga（目的还是把值存到reducer里）(多用于无状态组件Hoocs)
+~~~~
 用于管理应用程序Side Effect（副作用，例如异步获取数据，访问浏览器缓存等）的library，它的目标是让副作用管理更容易，执行更高效，测试更简单，在处理故障时更容易
 redux-saga使用ES6的Generator功能，让异步的流程更容易读取、写入和测试
 安装 npm install --save redux-saga
 使用 import {take,put,call,select,fork,takeEvery,takaLatest} from 'redux-saga/effects';
+~~~~
 
-（1）take：用于监听action，返回的是监听到的action对象
+##### （1）take：用于监听action，返回的是监听到的action对象
+~~~~jsx
 while(true){
    let payload = yield take('LOGIN'); //监听dispatch里的type
    yield put({type: 'login',data:payload.data});
 }
+~~~~
 
-（2）call：call方法和js中的call方法相似（改变this指向），call方法调用函数，参数为args，返回一个描述对象，通常用来异步请求数据（从上往下执行）
+##### （2）call：call方法和js中的call方法相似（改变this指向），call方法调用函数，参数为args，返回一个描述对象，通常用来异步请求数据（从上往下执行）
+~~~~jsx
 while(true){
    let action = yield take('SWIPER');
    let payload = yield call(getSwiperData);//异步请求数据
@@ -1607,8 +1629,10 @@ if(action.data.success){
    action.data.success();
 }
 }
+~~~~
 
-（3）fork：fork方法与call相似，fork相当于web work，不会阻塞主线程，在非阻塞调用中十分有用（谁快执行谁）
+##### （3）fork：fork方法与call相似，fork相当于web work，不会阻塞主线程，在非阻塞调用中十分有用（谁快执行谁）
+~~~~jsx
 while(true){
    let action = yield take('SWIPER');
    let payload = yield fork(getSwiperData);//非阻塞异步请求数据
@@ -1623,126 +1647,74 @@ if(action.data.success){
    action.data.success();
 }
 }
+~~~~
 
-（4）put：dispatch和reducer之间的桥梁，把处理后的数据传到reducer中
+##### （4）put：dispatch和reducer之间的桥梁，把处理后的数据传到reducer中
+~~~~jsx
 yield put (type: 'out_login',data:{username: '',isLogin:false});
+~~~~
 
-（5）select：select方法对应redux里的getState，用于获取store里的state
+##### （5）select：select方法对应redux里的getState，用于获取store里的state
+~~~~jsx
 let rootState = yield select();
+~~~~
 
-（6）takeEvery：并发监听，相应的dispatch触发的动作并执行相应的方法（相似take不需要while循环）
+##### （6）takeEvery：并发监听，相应的dispatch触发的动作并执行相应的方法（相似take不需要while循环）
+~~~~jsx
 function *takeDecCount(){
    yield takeEvery('DEC',decCount);//允许并发，监听dispatch里的type
 }
+~~~~
 
-（7）takeLatest：不允许并发，监听对应的dispatch触发的动作并执行对应的方法
+##### （7）takeLatest：不允许并发，监听对应的dispatch触发的动作并执行对应的方法
+~~~~jsx
 function *takeLatest (){
    yield takeLatest('INC',incCount);//不允许并发，监听dispatch里的type
 }
+~~~~
+![img](./images/React/150.png)  
 
+###### type改成小写那reducer里的type也要改成小写
  
-type改成小写那reducer里的type也要改成小写
+![img](./images/React/151.png) 
  
-
- 
-
-
-四十六.第三方UI库（蚂蚁金服的antd）
-安装npm install antd --save
-在入口文件index引入
-所有的组件都是需要按需加载
-插件：npm install babel-plugin-import --save-dev
-在整个项目下建立配置文件.babelrc
-{
-    "plugins": [
-        ["import",{
-            "libraryName":"antd",
-            "libraryDirectory":"es",
-            "style":"css"
-        }]
-    ]
-}
-会报错，因为我们在package.json存在在babel的配置，那就把配置项复制到package.json里
- 
-
-四十七.antd表格
-官网组件库
- 
-（1）普通的表格
- 
- 
-（2）表格全选
-点击表格获取表格值
- 
- 
- 
-
-（3）获取有打了勾的选项
- 
-
-（4）添加修改删除按钮（引入antd的Button）
- 
- 
-
-（5）从后台获取数据
- 
-
-（6）分页器（表格默认带翻页器）
- 
-
-（7）单个删除
- 
-
-（8）全部删除
- 
-或者第二种删除方法
- 
-
-四十八.antd表单验证
- 
- 
- 
-
-四十九.antd图片上传
- 
-name的值对应的就是后台需要的图片的key
+![img](./images/React/152.png) 
 
 
-五十.antd的mobile版
-安装：npm install antd-mobile --save
-npm install babel-plugin-import --save-dev
-配置：
- 
-
-五十一.antd-mobile的Picker选择器（选收货地址）
- 
-
-五十二.react国际化（网站不同语言切换）react-intl-universal
+#### 四十六.react国际化（网站不同语言切换）react-intl-universal
+~~~~
 安装 npm install react-intl-universal --save
-1.导入语言包
- 
-2.语言包解决的就是静态数据，至于后台数据会分成不同语言通过axios先存在redux里在根据语言类型取
- 
+~~~~
+##### 1.导入语言包
+![img](./images/React/153.png) 
 
-五十三.组件封装
- 
- 
+###### 2.语言包解决的就是静态数据，至于后台数据会分成不同语言通过axios先存在redux里在根据语言类型取
+![img](./images/React/154.png) 
 
-五十四.项目架构的搭建
+#### 四十七.组件封装
+![img](./images/React/155.png) 
+ 
+![img](./images/React/156.png) 
+
+#### 四十八.项目架构的搭建
+~~~~
 1.路由页面（pages）分为会员登录后访问的路由页面（user）和无需登录就能访问的页面（home）
+~~~~
+~~~~
 2.兼容IE（不兼容IE9以下）import "babel-polyfill"
- 
+~~~~
+![img](./images/React/157.png) 
+~~~~ 
 3.生产环境下出现白屏（浏览子页面后，子页面长屏，返回主页面会出现白屏）
 在componentDidMount里写
 document.body.scrollTop = 0;（IE）
 document.documentElement.scrollTop = 0
 注意在跳转到子页面是关了监听事件
- 
+~~~~
+![img](./images/React/158.png) 
+~~~~ 
 4.用nodejs做全局变量
- 
+~~~~ 
+![img](./images/React/159.png) 
 
-五十五.高德地图
-（1）原生获取当前位置
- 
-（2）官方的方法获取位置
- 
+#### 四十九mobx
