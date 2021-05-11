@@ -232,48 +232,76 @@ Object.assign({},{a:1},{b:1});
 ~~~~
 如果合并的两个对象键相同，则取后面的值
 ~~~~
-九.新的原始数据类型Symbol，表示独一无二的值 也就堆储存地址是不同的，用于定义对象的私有变量
+#### 九.新的原始数据类型Symbol，表示独一无二的值 也就堆储存地址是不同的，用于定义对象的私有变量
+
+~~~~javascript
 const name1 = Symbol('name');
 const name2 = Symbol('name');
 console.log(name1 === name2);//false
-
 let s1 = Symbol('S1'); //这里是对值的类型进行定义命名（这里名前后是一样最好，方便演示这里不一样，应该都是s1）
 let obj = {};
 obj[s1] = "Tom";
-查看对象obj如下:
- 
-取值：obj[s1] 只能这样取值 
-如果是Symbol定义的对象中的变量，取值时一定要用[变量名]，不能用.变量名
-直接往对象里面写值，也不能忘记中括号
+~~~~
+###### 查看对象obj如下:
+~~~~
+{Symbol(S1): "Tom"}
+~~~~
+###### 取值：
+~~~~javascript
+obj[s1] //!!只能这样取值 
+~~~~
+###### 如果是Symbol定义的对象中的变量，取值时一定要用[变量名]，不能用.变量名(直接往对象里面写值，也不能忘记中括号)
+~~~~javascript
 let obj = {
-   [s1]: "Tom";
+   [s1]: "Tom",
 };
-如果是Symbol定义的，是无法遍历的，只能作为私有属性
-let s1 =Symbol('S1');
+~~~~
+###### 如果是Symbol定义的，是无法遍历的，只能作为私有属性
+~~~~javascript
+  let s1 =Symbol('S1');
   let obj ={
       [s1]:'tom'
   };
   for(let key in obj){
       console.log(key); //没有任何输出
   }
-  调用keys方法查看属性：
-  Object.keys(obj); //是一个空数组
- 
+~~~~
 
-查找的方法：通过getOwnPropertySymbols
+###### 调用keys方法查看属性：
+~~~~javascript
+  Object.keys(obj); //是一个空数组
+~~~~
+![img](./images/ES6_1.png) 
+
+###### 查找的方法：通过getOwnPropertySymbols
+~~~~javascript
 let a = Object.getOwnPropertySymbols(obj);
 console.log(a);
 console.log(a[0]);
- 
-可以通过反射Reflect
+~~~~ 
+
+![img](./images/ES6_2.png) 
+
+###### 可以通过反射Reflect
+~~~~javascript
 console.log(Reflect.ownKeys(obj));
- 
+~~~~ 
 
+![img](./images/ES6_3.png) 
 
-十.Set数据类型，表示无重复值的有序列表
+#### 十.Set数据类型，表示无重复值的有序列表
+
+~~~~javascript
+let set = new Set();
+let arr = [1,2,3,4,3,4,6,2,5];
+arr.map(item => {
+  return (set.add(item));
+});
+console.log([...set])//变成数组去重
+~~~~
  
-1.创建 let set =new Set();
- 
+##### 1.创建 let set =new Set();
+![img](./images/ES6_4.png)  
 
 2.添加元素add
 set.add(2);
