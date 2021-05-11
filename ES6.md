@@ -222,7 +222,7 @@ Object.is(NaN,NaN); //true
 ~~~~
 
 ##### 2.assign()用于对象的合并
-~~~~javascript
+~~~~
 Object.assign(target,obj1,obj2,...);
 ~~~~
 ###### 把后面所有的对象都合并成target,返回值就是一个新对象
@@ -519,28 +519,65 @@ console.log(ite.next());//遍历第一次
 ![img](./images/ES6_18.png)
 ~~~~
 done表示遍历是否完成
- ~~~~
-十四.生成器（与迭代器相呼应）
+~~~~
+~~~~
+迭代器遍历数组
+参数:
+1.arr 目标数组
+2.time 遍历每个元素的间隔时间
+~~~~
+~~~~javascript
+let arr = [1,2,3,4,5,6];
+const iteArray = (arr, time) => {
+   let ite = arr[Symbol.iterator];
+   let num = 0;
+   let times = setInterval(() => {
+      num++;
+      console.log(ite.next().value);
+      if(num === arr.length){
+          clearInterval(times)
+      }
+   }, time)
+}
+~~~~
+#### 十四.生成器（与迭代器相呼应）
+~~~~
 generator函数，通过yield关键字将函数停留在当前位置，为改变执行流提供可能，同时为异步编程提供方案
 与普通函数的区别：
 1.function 后面函数名之前有一个*
 2.只能在函数内部使用yield，然函数停留当前位置
+~~~~
+~~~~javascript
 function* fnc() {
     yield 2;
 yield 3;
 }
 let o = fnc();//返回生成器对象，并不会调用函数内部，等next
 console.log(o);
- 
-返回一个遍历器对象 可以调用next()
+~~~~
+![img](./images/ES6_19.png)
+
+###### 返回一个遍历器对象 可以调用next()
+~~~~
 console.log(o.next());
 console.log(o.next());
- 
+~~~~
+![img](./images/ES6_20.png)
 
-这样就能无限循环调用
-     
-
+###### 这样就能无限循环调用
+~~~~javascript
+function* fuc () {
+  while (true){
+    yield 1;
+    yield 2;
+  }
+}  
+let o = fuc(); 
+~~~~
+~~~~
 总结：generator函数是分段执行，yield语句是暂停执行，next是恢复执行，一个next对应一个yield
+~~~~
+~~~~javascript
 function* add() {
     console.log('start');
     let x = yield '2'; //next的参数传给x，x不是yield 2 的返回值，它是next()调用 恢复当前yield()执行传入的实参
@@ -553,8 +590,11 @@ const fn = add();//生成一个生成器，函数内部不执行
 console.log(fn.next());
 console.log(fn.next(20));
 console.log(fn.next(30));
- 
-使用场景：为不具备Interator接口的对象提供遍历操作（数组有Interator接口）
+~~~~ 
+![img](./images/ES6_21.png)
+
+###### 使用场景：为不具备Interator接口的对象提供遍历操作（数组有Interator接口）
+~~~~javascript
 function* objectEntries(obj) {
     const propKeys = Object.keys(obj);//获取键的数组[name,age]
     for (const propKey of propKeys) { 
@@ -567,18 +607,40 @@ const obj = {
 }
 obj[Symbol.iterator] = objectEntries;//给对象创建一个迭代器
 console.log(obj);
- 
-迭代器一旦生成就可以for of遍历
+~~~~ 
+![img](./images/ES6_22.png)
+
+###### 迭代器一旦生成就可以for of遍历
+~~~~javascript
 for (let [key, val] of objectEntries(obj)) {
     console.log(`键:${key} 值:${val}`);
 }
- 
+~~~~
+![img](./images/ES6_23.png)
 
- 
+~~~~javascript
+let obj = {
+  a: "tom",
+  b: "jack",
+}
+function* objEnt() {
+  let keys = Object.keys(obj);
+  for(let key of keys){
+    yield [key, obj[key]];
+  }
+} 
+let kk = objEnt(obj)
+console.log(kk.next().value);
+console.log(kk.next().value);
+~~~~
 
-十五.生成器generator的应用
+#### 十五.生成器generator的应用
+~~~~
 https://free-api.heweather.net/s6/weather/now?location=beijing&key=4693ff5ea653469f8bb0c29638035976
 jQuery的Ajax请求
+~~~~
+
+~~~~javascript
 // 回调地狱
 $.ajax({
     url: 'https://free-api.heweather.net/s6/weather/now?location=beijing&key=4693ff5ea653469f8bb0c29638035976',
@@ -596,8 +658,10 @@ $.ajax({
         });
     }
 });
+~~~~
 
-解决回调地狱,ajax获取数据是需要时间的，防止未获取到数据就执行下一步操作
+###### 解决回调地狱,ajax获取数据是需要时间的，防止未获取到数据就执行下一步操作
+~~~~javascript
 function* main() {
     let res = yield request('https://free-api.heweather.net/s6/weather/now?location=beijing&key=4693ff5ea653469f8bb0c29638035976');
     console.log(res);
@@ -614,8 +678,10 @@ function request(url) {
         }
     });
 }
+~~~~
 
-加载图片时，1.先加载loading...页面，2.数据加载完成（异步操作），3.loading关闭
+###### 加载图片时，1.先加载loading...页面，2.数据加载完成（异步操作），3.loading关闭
+~~~~javascript
 function loadUI() {
     console.log('loading...界面打开');
 }
@@ -630,9 +696,12 @@ function hideUI() {
 loadUI();
 showData();
 hideUI();
- 
-这里数据没加载完成就已经关闭loading页面了
+~~~~ 
+![img](./images/ES6_24.png)
 
+###### 这里数据没加载完成就已经关闭loading页面了
+
+~~~~javascript
 function* load() {
     loadUI();
     yield showData();
@@ -652,24 +721,37 @@ function showData() {
 function hideUI() {
     console.log('loading...页面关闭');
 } 
- 
+~~~~ 
+![img](./images/ES6_25.png)
+~~~~
 让异步代码同步化，部署ajax操作
 同步就是：就是一件事一件事的执行。只有前一个任务执行完毕，才能执行后一个任务
+~~~~
 
-
-十六.Promise对象（在es6中有三种方法解决异步编程的问题Generator生成器是一种，Promise是一种，async是一种）
+#### 十六.Promise对象（在es6中有三种方法解决异步编程的问题Generator生成器是一种，Promise是一种，async是一种）
+~~~~
 相当于是一个容器，保存着未来还未结束的事件（异步操作的结果）
 各种异步操作都可以用同样的方法进行处理
 特点：
 1.对象的状态不受外界影响，处理异步操作三个状态 Pending（进行中） Resolved（已完成） Rejected（失败）
 2.一旦状态改变，就不会再变，任何时候都可以获取到状态结果 要不是从Pending到Resolved，要不是从Pending到Rejected
+~~~~
+
+~~~~javascript
 let pro = new Promise(function(resolved,rejected){
     //执行异步操作
 });
 console.log(pro)
- 
+~~~~ 
+
+![img](./images/ES6_26.png)
+
+~~~~
 then方法就是成功回调的方法
 catch方法就是捕获错误
+~~~~
+
+~~~~javascript
 let pro = new Promise(function (resolved, rejected) {
     //执行异步操作
     //模拟后端获取的数据
@@ -693,8 +775,10 @@ pro.then((val) => {//then方法可以接受两个回调函数，一个是获取�
 }, (err) => {
     console.log(err);//获取数据失败，得到失败提示
 });
+~~~~
+###### 封装一个ms毫秒以后获取数据的方法
 
-封装一个ms毫秒以后获取数据的方法
+~~~~javascript
 function timeOut(ms) {
     return new Promise((resolved, rejected) => {
         setTimeout(() => {
@@ -705,9 +789,12 @@ function timeOut(ms) {
 timeOut(2000).then((val) => {
     console.log(val);
 });
+~~~~
 
-十七.Promise的应用
-axios的getJSON方法
+#### 十七.Promise的应用
+##### axios的getJSON方法
+
+~~~~javascript
 let getJSON = function (url) {
     return new Promise((resolved, rejected) => {
         const xhr = new XMLHttpRequest();
@@ -732,31 +819,45 @@ getJSON('https://free-api.heweather.net/s6/weather/now?location=beijing&key=4693
 }, (err) => {
     console.log(err);
 });
+~~~~
 
-1.then方法 第一个参数必写是reslove的回调函数，第二个参数选写是reject的回调函数
+##### 1.then方法 第一个参数必写是reslove的回调函数，第二个参数选写是reject的回调函数
+~~~~
 then对象内部return 当前Promise对象
-2.catch方法捕获失败
-标准写法就是
+~~~~
+##### 2.catch方法捕获失败
+###### 标准写法就是
+~~~~javascript
 getJSON('https://free-api.heweather.net/s6/weather/now?location=beijing&key=4693ff5ea653469f8bb0c29638035976').then((data) => {
     console.log(data); //捕获成功
 }).catch((err) => {
     console.log(err); //捕获失败
 });
-
-3.resolve/reject方法
+~~~~
+###### 3.resolve/reject方法
+~~~~
 能将现有任何对象直接转化成Promise对象
 如将一个字符串转化成一个Promise对
+~~~~
+~~~~javascript
 let p = Promise.resolve('foo'); 等价于 let p = new Promise(resolve => resolve('foo'));
 console.log(p);
- 
+~~~~
+
+![img](./images/ES6_27.png)
+~~~~
 状态是 fulfilled
 值是foo
+~~~~
+~~~~javascript
 p.then((val) => {
     console.log(val); // foo
 });
+~~~~
 
-4.all方法
-同时执行多个异步
+##### 4.all方法
+###### 同时执行多个异步
+~~~~javascript
 let promise1 = new Promise((resolved, rejected) => { })
 let promise2 = new Promise((resolved, rejected) => { })
 let promise3 = new Promise((resolved, rejected) => { })
@@ -766,9 +867,13 @@ promise4.then(() => {
 }).catch(() => {
     //如有一个失败，则失败
 });
+~~~~
+~~~~
 用于一些游戏类，素材比较多，等待图片，flash，静态文件都加载完，才能继续
+~~~~
 
-5.race方法,用于请求超时时间设置，在超时后执行相应的操作
+##### 5.race方法,用于请求超时时间设置，在超时后执行相应的操作
+~~~~javascript
 function requestImg(imgSrc) {
     return new Promise((resolved, rejected) => {
         const img = new Image();
@@ -794,22 +899,34 @@ Promise.race([requestImg('http://img1.3png.com/b723851d7b05255ae975f1b4b565b6ba6
     //获取图片失败
 console.log(err);
 });
+~~~~
+~~~~
 race就是第一个成功了就不会往后走
+~~~~
 
-6.done/finally方法
+##### 6.done/finally方法
+~~~~
 都放在最后，调用不管请求成功还是失败都能调用
 用于关闭服务器
+~~~~
 
-十八.async异步操作
+#### 十八.async异步操作
+~~~~
 1.使异步操作更加方便
 2.声明函数需要加关键字async
 3.返回一个Promise对象
 4.是Generator的语法糖
+~~~~
+~~~~javascript
 async function l() {
 }
 console.log(l());
- 
+~~~~
+![img](./images/ES6_28.png)
+~~~~
 await命令后面跟Promise对象，不是就会转化成Promise对象，只能用在async函数中，只要有一个await后面的命令失败了，那就不往下执行
+~~~~
+~~~~javascript
 async function l() {
     let name = await 'tom,jack,bob';//将字符串转化成了Promise对象，获取name
     let data = await name.split(','); //成功获取了name才会执行这一条
@@ -820,13 +937,15 @@ l().then((val) => {
 }).catch((err) => {
     console.log(err);
 });
- 
-
+~~~~ 
+~~~~
 1.解决了回调地狱
 2.使得异步操作更加方便
+~~~~
 
-十九.class关键字解决了构造函数的陌生
-es5:
+#### 十九.class关键字解决了构造函数的陌生
+###### es5:
+~~~~javascript
 function Person(name, age) {
     this.name = name;
     this.age = age;
@@ -835,8 +954,9 @@ Person.prototype.sayName = function () {
     return this.name;
 }
 var person = Person('tom', 20);
-
-es6:
+~~~~
+###### es6:
+~~~~javascript
 class Person {
     constructor(name, age) {
         this.name = name;
@@ -846,9 +966,12 @@ sayName(){
     return this.name;
 }
 }
+~~~~
+~~~~
 当类实例化之后会自动调用constructor
-
-可以通过Object.assign()方法一次性向类的原中添加多个方法
+~~~~
+###### 可以通过Object.assign()方法一次性向类的原中添加多个方法
+~~~~javascript
 Object.assign(Person.prototype, {
     sayName() {
         return this.name;
@@ -857,8 +980,10 @@ Object.assign(Person.prototype, {
         return this.age;
     }
 });
+~~~~
 
-二十.类的基础extends
+#### 二十.类的基础extends
+~~~~javascript
 class Person {
     constructor(name, age) {
         this.name = name;
@@ -875,31 +1000,44 @@ class Male extends Person {
         this.sex = sex;
     }
 }
-
+~~~~
+~~~~
 可以直接继承父类方法，也可以重写，也可以类的混合
+~~~~
 
-
-二十一.ES6的模块化实现
+#### 二十一.ES6的模块化实现
+~~~~
 功能：
 1.export（抛出）和import（导入）组成
 2.export用于规定模块的对外接口
 3.import用于输入其他模块提供功能
 4.一个模块就是一个独立文件
+~~~~
+
+~~~~javascript
 export const name = 'tom';//导出
 export function sayName(){
     return name;
 }
+~~~~
+~~~~
 或者export {name,sayName}//不建议
 引入的script便签type必须是module
+~~~~
+~~~~html
 <script type='module'>
        import {name,sayName} from "./module/index.js"; //引入
        console.log(name); //tom
 </script>
+~~~~
 
-默认抛出，整个js文件只能用一次
+###### 默认抛出，整个js文件只能用一次
+~~~~javascript
 let obj ={
     foo:'foo'
 }
 export default obj;
-接收的时候
+~~~~
+###### 接收的时候
+~~~~javascript
 import obj, {name,sayName} from './module/index.js';
