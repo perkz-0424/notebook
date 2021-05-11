@@ -150,8 +150,9 @@ let PageHandle = {
 }
 ~~~~
 ~~~~
-注意事项：1.使用了箭头函数就没有arguments了（因为都没作用域链了this都没了，arguments是this.arguments）
-          2,箭头函数不能作为构造函数，new无用了
+注意事项：
+      1.使用了箭头函数就没有arguments了（因为都没作用域链了this都没了，arguments是this.arguments）
+      2.箭头函数不能作为构造函数，new无用了
 ~~~~
 
 #### 六.结构赋值
@@ -170,7 +171,9 @@ let node = {
 ~~~~javascript
 let type = node.type;
 let name = node.name;
-es6:
+~~~~
+###### es6:
+~~~~javascript
 let { type, name } = node; //变量名必须是当前对象的属性名
 let { type, ...reg } = node; //可以用剩余运算符，防止丢属性
 ~~~~
@@ -189,7 +192,7 @@ let [a, [b], c] = [1, [2], 3];
 ~~~~
 es6直接写入变量和函数，作为属性和方法
 ~~~~
-##### es5:
+###### es5:
 ~~~~javascript
 const name = 'tom', age = 20;
 const Person = {
@@ -200,7 +203,7 @@ const Person = {
     }
 }
 ~~~~
-##### es6:
+###### es6:
 ~~~~javascript
 const name = 'tom', age = 20;
 const Person = {
