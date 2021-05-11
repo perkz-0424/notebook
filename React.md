@@ -699,7 +699,7 @@ export default BodyComponents;
 ~~~~jsx
 add = () => {
    this.setState({
-     num : this.state.num + 1
+      num : this.state.num + 1
    })
 }
 less = () => {
@@ -710,11 +710,9 @@ less = () => {
 
 change = (e) => {
    const number = e.target.value.replace(/[^\d]/g, "");
-   if(number === "0"){
-      number = "1"
-   }
+   num = number === "0" ? "1" : number;
    this.setState({
-      number
+      num
    })
 }
 <div>
@@ -727,115 +725,168 @@ change = (e) => {
 ~~~~
 
 #### 二十.子组件给父组件传值（props是父组件给子组件传值，也可以反向）
-可以做子组件给父组件传值，也可以父子组件双向绑定
-父组件：
- 
-子组件：
+##### 可以做子组件给父组件传值，也可以父子组件双向绑定
+###### 父组件：
+
+![img](./images/React/5.png) 
+
+###### 子组件：
+~~~~jsx
 <button type="button" onClick={this.props.sendParent.bind(this,"子组件传的值")}>给父组件传值</button>
+~~~~
 
-自己定义的父组件标签是不能绑定系统的onClick等事件，我们就可以在子组件把Onclick等事件传过去
-子组件：
+##### 自己定义的父组件标签是不能绑定系统的onClick等事件，我们就可以在子组件把Onclick等事件传过去
+###### 子组件：
+~~~~jsx
 <button type="button" onClick={this.props.onClick}>给父组件传onClick</button>
-父组件：
+~~~~
+###### 父组件：
+~~~~jsx
 <BodyComponent onClick={this.getChildren.bind(this)}></BodyComponent>
+~~~~
+~~~~
 然后再写getChildren()方法
+~~~~
 
-二十一.插槽（Portals）就是预定义一些小标签，可以直接使用
+#### 二十一.插槽（Portals）就是预定义一些小标签，可以直接使用
+~~~~
 原理：利用父子组件传值、插槽{this.props.children}
- 
+~~~~ 
+![img](./images/React/6.png) 
 
+![img](./images/React/7.png) 
  
-React.Fragment（碎片）是不显示根组件，因为每个组件必须有个根组件包裹，样式就写在index.js 根目录下的style.css里
- 
+###### React.Fragment（碎片）是不显示根组件，因为每个组件必须有个根组件包裹，样式就写在index.js 根目录下的style.css里
 
-二十二.lazy和suspense实现组件懒加载（也叫按需加载，可以对组件和路由进行懒加载）主要用在长屛
-1.React.lazy()
+![img](./images/React/8.png)  
+
+#### 二十二.lazy和suspense实现组件懒加载（也叫按需加载，可以对组件和路由进行懒加载）主要用在长屛
+
+##### 1.React.lazy()
+~~~~
 是用来对项目代码进行分割、懒加载用的，只有当组件被加载，内部的资源才会导入。
 在React的项目中import导入其他组件和库都是默认在初始直接导入的，webpack等打包工具会将import导入的文件直接合并到一个大文件中，如果项目很大，打包完后初始化加载需要加载文件会很大，这个时候就需要进行代码分割
+~~~~
 
-2.React.Suspense()
+##### 2.React.Suspense()
+~~~~
 在遇到异步请求或者导入组件的时候等待请求和导入完成再进行渲染
+~~~~
 
-3.如滚动距离大于100才加载
- 
-懒加载导入
- 
-根据滚动条滚动判断
- 
-懒加载的组件使用
- 
-这里的fallback必须放一个加载等待的动画组件，没有就放一个碎片组件
+##### 3.如滚动距离大于100才加载
+
+~~~~jsx
+import React, {lazy, Suspense} from "react";
+~~~~
+###### 懒加载导入
+~~~~jsx 
+let Cavans = lazy(() => {import("./components/Cavans")});
+~~~~ 
+###### 根据滚动条滚动判断
+
+![img](./images/React/10.png)
+
+###### 懒加载的组件使用
+
+![img](./images/React/9.png)  
+
+###### 这里的fallback必须放一个加载等待的动画组件，没有就放一个碎片组件
 
 
-二十三.注意
+#### 二十三.注意
+~~~~
 如果是图片相对路径，转格式require(路径)，但基本上都会是后端传输的数据，或者将图片import导入
 解决引用值改变后因为都指向同一个堆，而另一个也改变，用深度拷贝，先转化为JSON再转换回来
 setState触发render方法，有些时候需要加一个空的上去
+~~~~
 
-二十四.css和css模块化
+#### 二十四.css和css模块化
+~~~~
 如果想用class而不是className
 npm install babel-plugin-react-html-attrs --save-dev
+~~~~
+##### 在webpack.config.js里配置，加上react-html-attrs
 
-在webpack.config.js里配置，加上react-html-attrs
- 
+![img](./images/React/11.png) 
 
 
-css文件模块化
-React是单页面应用，引用css样式都是默认全局的，这里会引起冲突，降低性能
-（1）需要配置webpack（官方已经配置好了）
+##### css文件模块化
+
+##### React是单页面应用，引用css样式都是默认全局的，这里会引起冲突，降低性能
+###### （1）需要配置webpack（官方已经配置好了）
+~~~~
 使用步骤
 1.取名：style.module.css
 2.引入：import Css from './style.module.css';
 3.使用：<div className={Css['app']}><div>
 css文件：
 .app{css样式}
+~~~~
+###### （2）自己命名的：
 
-（2）自己命名的：
-1.配置:自定义的命名格式[路径-id-css名-哈希值]
+###### 1.配置:自定义的命名格式[路径-id-css名-哈希值]
+![img](./images/React/12.png) 
  
-2.style.module.css文件内容
+###### 2.style.module.css文件内容
+![img](./images/React/13.png)  
+
+###### 3.引入css模块，打印看看
+![img](./images/React/14.png) 
  
-3.引入css模块，打印看看
- 
-4.打印结果
+###### 4.打印结果
 变成了json对象
 每一个class变成一个css对象
+![img](./images/React/15.png) 
  
-5.使用
- 
- 
-多个class值
- 
+###### 5.使用
+![img](./images/React/16.png) 
 
-css文件夹模块化
+![img](./images/React/17.png)  
+
+###### 6.多个class值
+![img](./images/React/18.png) 
+
+##### css文件夹模块化
+~~~~
 这样全部的css文件都变成模块化
 接下来需要规定哪些文件夹不模块化（公共组件不模块化）
- 
+~~~~
+![img](./images/React/19.png) 
+~~~~
 node_modules就是第三方ui库
+~~~~
 
-二十五.无状态组件和有状态组件
-（1）无状态组件（展示组件，函数式组件）
+#### 二十五.无状态组件和有状态组件
+
+##### （1）无状态组件（展示组件，函数式组件）
+~~~~
 没有props，没有生命周期，就是一个简单的视图函数，没有业务逻辑更纯粹的展示UI
+~~~~
+~~~~jsx
 function NoState (){
 return(
   <div>无状态组件</div>
 )
 }
+~~~~
+~~~~
 作用是用于封装组件配合高阶组件
-
-（2）也可以父子组件传值
-父传子：
-父组件：
+~~~~
+##### （2）也可以父子组件传值
+###### 父传子：
+~~~~jsx
+//父组件：
 <NoState title={false}></NoState>
-子组件：
+//子组件：
 function NoState (props){
 return(
   <div>{prons.title}</div>
 )
 }
-
-子传父：
-子组件：
+~~~~
+###### 子传父：
+~~~~jsx
+//子组件：
 function NoState (props){
 return(
   <button onClick={()=>{
@@ -843,51 +894,67 @@ props.Onclick(传值)
 }}></button>
 )
 }
-父组件：
-a就是传过来的值
-show(a){
-}
+//父组件：
+//a就是传过来的值
+show = (a) => {}
 <NoState onClick={(a)=>{
    this.show(a)
 }}></NoState>
+~~~~
+![img](./images/React/20.png) 
 
+![img](./images/React/21.png)  
  
+![img](./images/React/22.png) 
  
 
- 
-
-二十六.高阶组件HOC
+#### 二十六.高阶组件HOC
+~~~~
 就是高阶函数，我们定义一个函数，里面返回一个有状态组件，就是高阶组件，使业务逻辑层和UI层分离
-如：
+~~~~
+~~~~jsx
 function hoc(){
    return function hocComponent(){
-    ...
+    
+   }
 }
-}
-执行
+~~~~
+
+###### 执行
+~~~~jsx
 hoc()()
+~~~~
 
-高阶组件分两种
-1.属性代理方式
+##### 高阶组件分两种
+###### 1.属性代理方式
+~~~~
 属性代理是最常见的高阶组件的使用方式，它通过做一些操作，将被包裹组件的props和新生的props一起传输给此组件，相当于父子组件传值
+~~~~ 
+![img](./images/React/23.png)
+
+![img](./images/React/24.png)
  
- 
-还可以props传值
-2.反向继承的方式
+###### 还可以props传值
+###### 2.反向继承的方式
+~~~~
 这种方式返回的React组件继承了被传入的组件，所以它能够访问的区域，权限更多，相比属性代理方式，它更像打入组织内部，对其进行修改，也就是可以访问被继承的属性
- 
- 
+~~~~
+![img](./images/React/25.png) 
+
+![img](./images/React/26.png) 
+~~~~ 
 对Apps.js里的有状态组件的state的属性方法进行访问
+~~~~
 
-二十七.HOC的应用
-传值顺序：
- 
+#### 二十七.HOC的应用
+##### 传值顺序：
+![img](./images/React/27.png) 
 
- 
+![img](./images/React/28.png) 
 
-第2步无限接受参数
- 
-
+##### 第2步无限接受参数
+![img](./images/React/29.png)  
+~~~~jsx
 //逻辑
 import React from 'react';
 export default function Hoc(WithComponent) {
@@ -954,8 +1021,7 @@ export default function Hoc(WithComponent) {
                 <React.Fragment>
                     <WithComponent {...this.props} {...newProps} submit={(callback) => { this.buttonLogin(callback) }}></WithComponent>
                 </React.Fragment>
-
-
+             )
 //UI
 const Login = Hoc((props) => {
   //props就是代表父组件里的值
@@ -982,17 +1048,19 @@ class App extends React.Component {
     )
   }
 }
-export default App;
+export default Login;
+~~~~
 
-二十八.将逻辑和UI分开的轮播图
-逻辑
- 
-UI
- 
-使用
- 
+#### 二十八.将逻辑和UI分开的轮播图
+##### 逻辑
+![img](./images/React/30.png) 
+##### UI
+![img](./images/React/31.png) 
+##### 使用
+![img](./images/React/32.png) 
 
-二十九.HOOKS（useState，useEffect，useReducer，useContext）
+#### 二十九.HOOKS（useState，useEffect，useReducer，useContext）
+
 由于组件时复杂的容器（class）希望变得简单，
 Hooks可以让无状态组件实现有状态组件的部分功能，比如设置state，使用构造函数（生命周期）：componentDidMount
 就不用类了，改用函数
