@@ -397,16 +397,19 @@ export default App
     </script>
 ~~~~
 
-十一.react diff算法（面试）
-虚拟DOM的原理：
+#### 十一.react diff算法（面试）
+##### 虚拟DOM的原理：
+~~~~
 虚拟DOM相当于在js和真实dom中间加了一个缓存，将真实dom转化为json对象，利用dom diff算法避免了没必要的都没操作，从而提高性能
 一个diff函数有两个参数一个真实DOM一个是虚拟DOM，使用递归对z组件，文本节点，非文本DOM节点，属性作比较，如果相同，不更新，如果不相同则更新
 对比子节点：子节点和之前的不同，子节点是一个数组，它们可能改变了顺序，或者数量有所变化，我们很难确定要虚拟DOM哪一个做对比。所以我们要给他设置key，如果有key使用key查找子节点的值（高性能），如果没有key则按照DOM类型查找（低性能）
-    比较真实dom和虚拟dom如果有不同就砍掉，从新添加
+比较真实dom和虚拟dom如果有不同就砍掉，从新添加
+~~~~
 
+#### 十二.条件渲染（两种条件判断形式）（注意jsx里的class要写成className）
 
-十二.条件渲染（两种条件判断形式）（注意jsx里的class要写成className）
-1.三目表达式和条件判断语句（不是写在return里）
+##### 1.三目表达式和条件判断语句（不是写在return里）
+~~~~jsx
 import React, { Component } from 'react';
 
 class HeaderComponent extends Component {
@@ -431,8 +434,12 @@ class HeaderComponent extends Component {
     }
 }
 export default HeaderComponent;
-      2.事件的格式（固定格式，this需要bind重新指向类）（以及用&&去判断渲染）
+~~~~
+
+##### 2.事件的格式（固定格式，this需要bind重新指向类）（以及用&&去判断渲染）     
+~~~~jsx
 import React, { Component } from 'react';
+
 class HeaderComponent extends Component {
     constructor() {
         super();
@@ -463,98 +470,186 @@ class HeaderComponent extends Component {
     }
 }
 export default HeaderComponent;
+~~~~
 
-十三.列表（Lists）和键（Keys）循环输出数据
-显示在jsx里的相关属性必须写在this.state
- 
- 
+#### 十三.列表（Lists）和键（Keys）循环输出数据
+##### 显示在jsx里的相关属性必须写在this.state
+~~~~jsx
+import React, { Component } from 'react';
 
-十四.组件（子组件，父组件）
+class HeaderComponent extends Component {
+    constructor() {
+        super();
+        this.state = {
+            bShow: true,
+            goods: [
+              {id: 1, title: "男装"},
+              {id: 2, title: "女装"},
+              {id: 3, title: "童装"}
+            ]
+        }
+    }
+    render() {
+        return (
+            <ul>
+                {
+                   this.state.goods.map((item, index) => <li key={index}>{item.title}</li>)
+                }
+            </ul>
+        )
+    }
+}
+export default HeaderComponent;
+~~~~ 
+
+#### 十四.组件（子组件，父组件）
+~~~~
 子组件导入父组件
+~~~~
 
-十五.（Props）实现父组件给子组件传值
-1.父组件传值：
+#### 十五.（Props）实现父组件给子组件传值
+##### 1.父组件传值：
+~~~~
 如果传除了字符串的参数，要加 { }
- 
+~~~~
+~~~~jsx
+<Header title="Tom"/>
+~~~~
 
-2.子组件接受值：
- 
-3.规定父组件传值的类型
-在子组件里设置（固定写法）
- 
- 
-4.Props（面试）
+##### 2.子组件接受值：
+~~~~jsx
+this.props
+~~~~
+##### 3.规定父组件传值的类型
+###### 在子组件里设置（固定写法）
+~~~~jsx
+import PropTypes from "prop-types";
+
+Header.propTypes = {
+  title: PropTypes.string.isRequired //只能传字符串
+}
+Header.defaultProps = {
+  title: "Head" //默认值
+}
+~~~~ 
+
+##### 4.Props（面试）
+~~~~
 state和props主要区别在于prop是不可改变的，而state可以根据与用户的交互来改变，这就是为什么有些容器组件需要定义更新和修改数据，而父子组件只能通过props来传递数据
+~~~~
 
-
-十六.状态（state）
+#### 十六.状态（state）
+~~~~
 state是组件的核心，是数据的来源，必须尽可能的简单，基本上状态是确定组件呈现和行为的对象，与props不同，它们是可以改变的，并创建动态和交互组件。可以通过this.state访问它们
- 
-setState第二个参数回调函数
- 
- 
-因为是异步函数，回调函数里就是更新完成的容，用于后端传输数据完成后进行下一步
+~~~~ 
+~~~~
+constructor(props) {
+  super(props);
+  this.state = {
+    title: "asd"
+  }
+}
+~~~~
+##### setState第二个参数回调函数
+~~~~jsx
+this.setState({
+  title: "res"
+}, () => {
+  console.log(this.state.title)
+}) 
+~~~~ 
 
-super()传参数props，在super被调用前，子类是不能用this的，在ES5中子类必须在constructor中调用super()，在传递props给super()的原因就是便于（在子类中）能够在constructor访问props
+###### 因为是异步函数，回调函数里就是更新完成的容，用于后端传输数据完成后进行下一步
 
-十七.生命周期
-1.构造方法，创建组件时调用
+###### super()传参数props，在super被调用前，子类是不能用this的，在ES5中子类必须在constructor中调用super()，在传递props给super()的原因就是便于（在子类中）能够在constructor访问props
+
+#### 十七.生命周期
+
+##### 1.构造方法，创建组件时调用
+~~~~
 constructor(){}
-
-2.页面将要加载完
+~~~~
+##### 2.页面将要加载完
+~~~~
 UNSAFE_componentWillMount(){}
-
-3.页面加载完成
+~~~~
+##### 3.页面加载完成
+~~~~
 componentDidMount(){}
-
-4.在组件接受到一个新的prop(更新后)时被调用，这个方法在初始化render时不会被调用
+~~~~
+##### 4.在组件接受到一个新的prop(更新后)时被调用，这个方法在初始化render时不会被调用
+~~~~
 UNSAFE_componentWillReceiveProps(newProps){}
-
-5.优化性能，当返回值为true，组件调用render方法，也就是调用各种diff算法等等，false时就不会调用，这样就能减少性能的损耗，一般用于接受完新的props或state后调用，官方建议少使用（因为现在基本都是动态页面）
+~~~~
+##### 5.优化性能，当返回值为true，组件调用render方法，也就是调用各种diff算法等等，false时就不会调用，这样就能减少性能的损耗，一般用于接受完新的props或state后调用，官方建议少使用（因为现在基本都是动态页面）
+~~~~
 shouldComponentUpdate(newProps,newState){
      return false;
 }
-
-6.在组件收到新的props或者state但还没有被render调用，在初始化时不会被调用
+~~~~
+##### 6.在组件收到新的props或者state但还没有被render调用，在初始化时不会被调用
+~~~~
 UNSAFE_componentWillUpdate(nextProps,nextState){}
-
-7.在组件完成更新后立即调用，在初始化时不会被调用
+~~~~
+##### 7.在组件完成更新后立即调用，在初始化时不会被调用
+~~~~
 componentDidUpdate(prevProps,prevState){}
-
-8.页面渲染，React的核心函数
+~~~~
+##### 8.页面渲染，React的核心函数
+~~~~
 render(){}
-
-9.在组件从DOM中移除的时候立刻被调用（当离开页面时，清除事件，清除定时器...）
+~~~~
+##### 9.在组件从DOM中移除的时候立刻被调用（当离开页面时，清除事件，清除定时器...）
+~~~~
 componentWillUnmount(){}
+~~~~
 
-十八.事件处理
-（1）事件的绑定（三种绑定方法）
-1.React事件是以驼峰命名的，比如onClick
-2.es5绑定事件的法则:<button onClick={this.事件函数名.bind(this)}>按钮<button>
- 
- 
+###### 十八.事件处理
+
+##### （1）事件的绑定（三种绑定方法）
+
+###### 1.React事件是以驼峰命名的，比如onClick
+###### 2.es5绑定事件的法则:
+~~~~jsx
+<button onClick={this.事件函数名.bind(this)}>按钮<button>
+~~~~
+~~~~
 第一个this指向button，第二个this指向当前对象
 bind不会自己执行，call会直接自己执行
+~~~~
+###### 3.es6箭头函数的绑定写法（不好传参）
+~~~~jsx
+fnEs6 = () => {
+  console.log("...")
+} 
+<button onClick={this.fnEs6}/>
+~~~~
 
-3.es6箭头函数的绑定写法（不好传参）
- 
- 
-
-4.es5bind第二个参数，就可以传参给函数
- 
- 
-
-5.可以之间在onClick上绑定箭头函数（传参和事件源对象获取）
- 
- 
-（2）事件的分类
+###### 4.es5bind第二个参数，就可以传参给函数
+~~~~jsx
+updata = (value) => {
+   console.log(value)
+}
+<button onClick={this.updata.bind(this, "es5")}/> 
+~~~~
+###### 5.可以之间在onClick上绑定箭头函数（传参和事件源对象获取）
+~~~~jsx
+click = (value) => {
+  console.log(value)
+}
+<button onClick={() => {this.click("=>")}}/>
+~~~~ 
+##### （2）事件的分类
+~~~~
 onMouseOver鼠标移动到元素上
 onMouseOut光标离开元素
 onMouseMove鼠标移动时
 onTouchStart触摸开始
 onTouchMove触摸移动
 onTouchEnd触摸结束（获取不到结束坐标）
-球体移动：
+~~~~
+###### 球体移动：
+~~~~jsx
 import React from 'react';
 class BodyComponents extends React.Component {
     constructor() {
@@ -599,12 +694,39 @@ class BodyComponents extends React.Component {
     }
 }
 export default BodyComponents;
+~~~~
+#### 十九.form表单的双向绑定
+~~~~jsx
+add = () => {
+   this.setState({
+     num : this.state.num + 1
+   })
+}
+less = () => {
+   this.setState({
+      num : this.state.num - 1
+   })
+}
 
-十九.form表单的双向绑定（比如添加商品数量，下面灰根据单价自动出总价）
- 
- 
+change = (e) => {
+   const number = e.target.value.replace(/[^\d]/g, "");
+   if(number === "0"){
+      number = "1"
+   }
+   this.setState({
+      number
+   })
+}
+<div>
+  <button onClick={this.add}> + </button>
+  <input value={this.state.num} onChange={this.change}/>
+  <button onClick={this.less}> - </button>
+</div>
 
-二十.子组件给父组件传值（props是父组件给子组件传值，也可以反向）
+ 
+~~~~
+
+#### 二十.子组件给父组件传值（props是父组件给子组件传值，也可以反向）
 可以做子组件给父组件传值，也可以父子组件双向绑定
 父组件：
  
