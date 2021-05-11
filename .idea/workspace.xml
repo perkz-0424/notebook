@@ -2,28 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8dc7d650-e0bf-44a1-8f3d-2132e7cc0738" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/images/React/33.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/React/34.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/React/35.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/React/36.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/React/37.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/React/38.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/React/39.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/React/40.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/React/41.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/React/42.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/React/43.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/React/44.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/React/45.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/React/46.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/React/47.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/React/48.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/React/49.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/React/50.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/React/51.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/React/52.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/React/53.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/React/54.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/React/55.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/React/56.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/React/57.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/React/58.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/React/59.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/React/60.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/React/61.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/React/62.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/React/63.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/React/64.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/React.md" beforeDir="false" afterPath="$PROJECT_DIR$/React.md" afterDir="false" />
     </list>
@@ -69,7 +57,7 @@
       <workItem from="1620607758168" duration="7373000" />
       <workItem from="1620625723266" duration="12000" />
       <workItem from="1620633974370" duration="949000" />
-      <workItem from="1620694603533" duration="20913000" />
+      <workItem from="1620694603533" duration="21544000" />
     </task>
     <servers />
   </component>

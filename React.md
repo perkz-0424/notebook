@@ -1157,41 +1157,55 @@ export const ReactContext = React.createContext();
 ###### （14）同步计数
 ![img](./images/React/54.png)
 
-数据贡献的步骤
-1.创建数据源
- 
-2.创建执行上下文用来储存数据和状态
- 
-3.包裹
- 
-4.读取数据或修改数据
- 
-三十.用Hooks封装轮播图
- 
- 
+##### 数据共享的步骤
+###### 1.创建数据源
+![img](./images/React/55.png) 
 
-三十一.react-transition-group动画
+###### 2.创建执行上下文用来储存数据和状态
+![img](./images/React/56.png)
+
+###### 3.包裹
+![img](./images/React/57.png)
+
+###### 4.读取数据或修改数据
+![img](./images/React/58.png) 
+
+#### 三十.用Hooks封装轮播图
+![img](./images/React/60.png)  
+
+![img](./images/React/59.png) 
+ 
+#### 三十一.react-transition-group动画
+~~~~
 css遇到display:none/block时动画就会失效，因为他是后执行display的原因，解决就是用setTimeout先执行display，对dom的增加或者删除可以实现动画效果
-第一步安装
+~~~~
+##### 第一步安装
+~~~~
 npm install react-transition-group --save
+~~~~
+##### 第二步使用
+![img](./images/React/61.png)
 
-第二步使用
- 
- 
-可以看出是一个函数
+![img](./images/React/62.png) 
+
+###### 可以看出是一个函数
+~~~~
 参数
 in={this.state.show} 布尔值从false变为true 入场，反之是出场
 time={3000}动画执行时间
 onEntered={(el)=>{}}入场回调函数
 onExited={(el)=>{}}出场回调函数
 className={fade}不能用css模块化
+~~~~
+![img](./images/React/63.png) 
 
- 
-css样式（固定格式）
- 
+###### css样式（固定格式）
+![img](./images/React/64.png) 
+~~~~
 TransitionGroup可以实现多个元素的增删
+~~~~
+#### 三十二.路由原理
 
-三十二.路由原理
 路由实现页面跳转，react-router和react-router-dom
 1.react-router:实现路由的核心功能
 2. react-router-dom:
