@@ -303,17 +303,22 @@ console.log([...set])//变成数组去重
 ##### 1.创建 let set =new Set();
 ![img](./images/ES6_4.png)  
 
-2.添加元素add
+##### 2.添加元素add
+~~~~javascript
 set.add(2);
 set.add("a");
- 
+~~~~ 
+![img](./images/ES6_5.png) 
 
-3.删除delete
+##### 3.删除delete
+~~~~javascript
 set.delete("a");
+~~~~
 
-4.has方法校验某个值是否在这里集合中
+##### 4.has方法校验某个值是否在这里集合中
 
-5.foreach 没有意义
+##### 5.foreach 没有意义
+~~~~javascript
 let set = new Set();
 set.add(2);
 set.add("a");
@@ -322,123 +327,199 @@ set.forEach((val, key) => {
     console.log(val);//键为值
     console.log(key);//值为值
 })
- 
+~~~~ 
+![img](./images/ES6_6.png)
 
-6.set转化成数组
+##### 6.set转化成数组
+~~~~javascript
 let set = new Set([2, 1, 2, 3, 4, 5, 4, 3]);
 console.log(set);
- 
-变数组（扩展运算符）
+~~~~ 
+![img](./images/ES6_7.png)
+
+###### 变数组（扩展运算符）
+~~~~javascript
 let set = new Set([2, 1, 2, 3, 4, 5, 4, 3]);
 let arr =[...set];
 console.log(arr)
- 
+~~~~
+![img](./images/ES6_8.png)
 
-7.set中对象的引用无法被释放,用WeakSet解决
+##### 7.set中对象的引用无法被释放,用WeakSet解决
+~~~~javascript
 let set = new Set(), obj = {};
 set.add(obj);
 obj = null;
 console.log(set);
- 
+~~~~ 
+![img](./images/ES6_9.png)
 
+~~~~javascript
 let set = new WeakSet(), obj = {};
 set.add(obj);
 obj = null;
 console.log(set);
- 
+~~~~ 
+![img](./images/ES6_10.png)
+~~~~
 WeakSet的特点1.不能传入非对象类型的参数2.无法遍历出来3.没有foreach4.没有size属性（相对于Set少了许多方法属性的）
+~~~~
 
-8.map循环，循环的结果写在return里，多用于react的列表循环输出
-返回一个新数组
+##### 8.map循环，循环的结果写在return里，多用于react的列表循环输出(返回一个新数组)
+~~~~javascript
 Array.map((item,index,array)=>{
 })
 [1,2,3].map(parseInt)
+~~~~
+~~~~
 新数组结果[1,NaN,NaN]
+~~~~
 
-十一.Map类型是键值对的有序列表，键和值是任意类
- 
+#### 十一.Map类型是键值对的有序列表，键和值是任意类
+
+##### 1.对象变map
+~~~~javascript
 let map = new Map();
- 
+let obj = {
+  "a": "tom",
+  "b": "jack",
+}
+for(let key in obj) {
+  map.set(key,obj[key]);
+}
+~~~~
+![img](./images/ES6_11.png)
 
-2.set方法设置键和值
+##### 2.set方法设置键和值
+~~~~javascript
 map.set('name','tom');
- 
+~~~~ 
+![img](./images/ES6_12.png)
 
-3.get方法获取值
+##### 3.get方法获取值
+~~~~javascript
 console.log(map.get('name'));
+~~~~
 
-4.初始化，传入的是一个内部元素是键值对数组的数组
+##### 4.初始化，传入的是一个内部元素是键值对数组的数组
+~~~~javascript
 new Map([[1,true],[2,false]]);
+~~~~
 
-5.WeakMap
+##### 5.WeakMap
 
-十二.数组的拓展方法
-（1）from将类数组转化为数组
-es5:
-let arr = [ ].slice.call(arguments);
-
-es6:
- 
- 
+#### 十二.数组的拓展方法
+##### （1）from将类数组转化为数组
+###### es5:
+~~~~javascript
+let arr = [].slice.call(arguments);
+~~~~
+###### es6:
+~~~~javascript
+console.log(document.getElementsByTagName("li"));
+console.log(Array.from(document.getElementsByTagName("li")));
+~~~~ 
+![img](./images/ES6_13.png)
+~~~~
 let arr = Array.from(arguments);
 运用在<ul><li>
 获取li的数组lis
 Array.from(lis);
 也可以用扩展运算符
 [...lis]
+~~~~
 
-还可以接受第二个参数，回调函数，用来遍历处理每个元素
- 
+###### 还可以接受第二个参数，回调函数，用来遍历处理每个元素
+~~~~javascript
+Array.from(document.getElementsByTagName("li"), ele => {
+  ele.addEventListener("click", e => {
+    console.log(e.target.innerText);
+  }, false);
+});
+~~~~
 
-（2）of将任意类型值，转化到数组
+##### （2）of将任意类型值，转化到数组
+~~~~javascript
 Array.of(1,2,3,4,5,6);
-这样就成了一个数组
+//这样就成了一个数组
+~~~~
 
-（3）copywithin复制替换
+##### （3）copywithin复制替换
+~~~~
 [1,2,3,4,5,8].copywithin(0,3);表示从3索引开始到结尾的值，给从0索引开始的值替换掉
 结果就是[4,5,8,4,5,8]
+~~~~
 
-（4）find和findIndex 找出第一个符合条件的成员
+##### （4）find和findIndex 找出第一个符合条件的成员
+~~~~
 [1,2,3,-3,-5,0].find(n=>n<0) 
 查找n<0的第一个符合条件的值返回
+~~~~
 
-（5）属性entries() keys() values() 返回一个遍历器，可以使用for of循环
+##### （5）属性entries() keys() values() 返回一个遍历器，可以使用for of循环
+~~~~javascript
 console.log([1,2,3,4,5].keys());
- 
-然后就可以遍历
- 
-（6）遍历器里的next方法，一次一次的遍历，调用一次，往下查阅一组数据
+~~~~ 
+![img](./images/ES6_14.png)
+
+###### 然后就可以遍历
+~~~~javascript
+for(let index of [1,2,3,4,5].keys()){
+  console.log(index) //遍历所有索引
+}
+for(let index of [1,2,3,4,5].values()){
+  console.log(index) //遍历所有值
+}
+for(let index of [1,2,3,4,5].entries()){
+  console.log(index) //遍历所有键值对
+}
+~~~~ 
+
+##### （6）遍历器里的next方法，一次一次的遍历，调用一次，往下查阅一组数据
+~~~~javascript
 let it = ['a', 'b', 'c', 'd'].entries();
 console.log(it.next().value);
 console.log(it.next().value);
 console.log(it.next().value);
 console.log(it.next().value);
- 
+~~~~ 
 
-（7）includes 返回一个布尔值，表示某个数组是否包含给定的值
+##### （7）includes 返回一个布尔值，表示某个数组是否包含给定的值
+~~~~javascript
 console.log([1,2,3,4].includes(1));//true 和indexOf一样，返回值不同，indexOf返回索引和-1
+~~~~
 
-十三.迭代器 
+#### 十三.迭代器 
+~~~~
 有两个核心
 1.是一个接口，是各种数据结构能快速访问的接口，通过Symbol.iterator创建迭代器，用next调用
 2.用于遍历数据结构的指针done
-Iterator是一种新的遍历机制
-属性里提供的方法
+~~~~
+##### Iterator是一种新的遍历机制
+###### 属性里提供的方法
+~~~~javascript
 const items = ['bob','cdcd','fdf'];
 console.log(items);
- 
+~~~~ 
+![img](./images/ES6_15.png)
 
+~~~~javascript
 console.log(items[Symbol.iterator]);
- 
-
+~~~~ 
+![img](./images/ES6_16.png)
+~~~~
 创建迭代器：const ite = items[Symbol.iterator]();
- 
+~~~~ 
+![img](./images/ES6_17.png)
 
-有唯一的方法next
+###### 有唯一的方法next
+~~~~javascript
 console.log(ite.next());//遍历第一次
- 
+~~~~ 
+![img](./images/ES6_18.png)
+~~~~
 done表示遍历是否完成
- 
+ ~~~~
 十四.生成器（与迭代器相呼应）
 generator函数，通过yield关键字将函数停留在当前位置，为改变执行流提供可能，同时为异步编程提供方案
 与普通函数的区别：
@@ -811,7 +892,7 @@ export function sayName(){
 或者export {name,sayName}//不建议
 引入的script便签type必须是module
 <script type='module'>
-       import {name,sayName} from './module/index.js'; //引入
+       import {name,sayName} from "./module/index.js"; //引入
        console.log(name); //tom
 </script>
 
