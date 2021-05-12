@@ -2,8 +2,11 @@
 ~~~~
 <meta charset="utf-8">
 <html lang="en">告诉搜索引擎爬虫网站的内容,语言是英语
-SEO
-标签1
+~~~~
+##### SEO
+
+##### 标签
+~~~~
 <p></p>
 <div></div>
 <span></span>
@@ -75,23 +78,26 @@ css里用list-style：none；来让前面没有任何标
 <img src="logo2.png" alt="图片" title="这个是吸尘器">
 ~~~~
 ##### 超链接跳转
+###### a标签的四个主要作用
+
+###### 1.<a href=””></a>
 ~~~~
-a标签的四个主要作用
-1.<a href=””></a>
 img标签被a标签包裹，img点击跳转
 属性target 属性值为-blank时跳转时在新的页面
 <a href="https://www.4399.com" target="blank"><img src="logo2.png" alt="跳转到小游戏" title="跳转到4399小游戏"></a>
-
-2.a标签的锚点书签记录位置，通过a标签回到那，用id记录
+~~~~
+###### 2.a标签的锚点书签记录位置，通过a标签回到那，用id记录
+~~~~
 <div id=”ab”></div>
 <a href=”#ab”></a>点击后回到上面的div
-
-3.打电话发邮件
+~~~~
+###### 3.打电话发邮件
+~~~~
 <a href=”tel：138……”></a>打电话
 <a href=”malito：138…@xx.com”></a>发邮件
-
-4.里面放一个JavaScript代码 加书签功能
 ~~~~
+###### 4.里面放一个JavaScript代码 加书签功能
+
 ##### 表单标签  传数据必须有名有值
 ~~~~html
 <form methon=”get/post” action=”后端地址”>
@@ -216,3 +222,5 @@ scrolling  yes/no是否可以滚动
      <embed src=””width=””height=””>
 </object>
 </video> 
+
+~~~~
