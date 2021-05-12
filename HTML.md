@@ -171,6 +171,7 @@ selected="selected"写在option里代表默认选项
 第三步在<tr></tr>里插入列<th></th>表头单元格或者<td></td>普通单元格
 ~~~~
 ##### 表格属性 排版
+
 ~~~~
 1.写在<table></table>上
 border 外边框 不是内边框 
@@ -179,9 +180,15 @@ cellpadding 内边距 内容到边的距离
 cellspacing 外边距 内容整体与内容整体的距离
 width设置成百分之百，自适应宽占满
 <table border="1" bgcolor="#f40" cellpadding="10" cellspacing="20"></table>
+~~~~
+
+~~~~
 2.写在<tr></tr>
 align=“center”
 height
+~~~~
+
+~~~~
 3.写在<th></th>或者<td></td>
 colspan 单元格可横跨的列数 一个格横向往后站几个格的位置
 rowspan 单元格可纵跨的行数 一个格纵向往下站几个格的位置
@@ -201,14 +208,18 @@ scrolling  yes/no是否可以滚动
 兼容性都不好
 1.<embed>单标签
 属性：height  width  src文件地址
-
+~~~~
+~~~~
 2.<object></object>
 属性：height  width  data文件地址
-
+~~~~
+~~~~
 3.<audio></audio>只能播放音频
 <audio controls>
   <source src=“xx.mp3”type=“mp3”>
 </audio>
+~~~~
+~~~~
 4.<video></video>只能播放视频
 <video width=“320”height=“320”controls>
    <source src=“xx.mp4”type=“mp4”>
