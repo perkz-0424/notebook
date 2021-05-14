@@ -47,3 +47,4 @@ componentWillUnmount() {
     this.worker && this.worker.terminate()
   }
 ~~~~
+###### 标题在固定宽里两端对齐  text-align-last: justify;
