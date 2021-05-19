@@ -9,7 +9,7 @@ react-native init ablums --version react-native@0.42
 ~~~~
 sudo npm install -g react-native-cli
 ~~~~
-#### 启动ios项目
+#### 启动项目
 ~~~~
 react-native run-ios
 react-native run-android
@@ -19,11 +19,11 @@ react-native run-android
 ##### 1.导入React和ReactNative
 ~~~~jsx
 import React from "react";
-import ReactNative from "react-native";
+import ReactNative, { View } from "react-native";
 ~~~~
 ##### 2.创建component函数（hooks）
 ~~~~jsx
-const Home = () => {
+const App = () => {
   return (
     <View></View>
   );
