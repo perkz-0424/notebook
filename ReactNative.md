@@ -48,7 +48,7 @@ React定义并实现了让不同Component交互与协作机制
 是reactNative相当于HTML里的div
 ~~~~
 #### ReactNative的样式
-##### FlexBox
+##### FlexBox 布局 不用写display
 ###### justifyContent
 ~~~~
 垂直布局
@@ -57,19 +57,7 @@ React定义并实现了让不同Component交互与协作机制
 ~~~~
 水平布局
 ~~~~
-##### shadow 阴影
-###### shadowColor
-~~~~
-shadowColor: "#000"
-~~~~
-###### shadowOffset
-~~~~
-shadowOffset: { width: 0, height: 2 }
-~~~~
-###### shadowOpacity
-~~~~
-shadowOpactity: 0.3
-~~~~
+##### 定位
 ~~~~
 position: "relative" //定位
 index: 2,//层级关系
@@ -84,5 +72,16 @@ elevation: 2,//和zIndex一起做层级关系
 2.对于ios
 同层级的组件，z轴的层叠关系只与摆放顺序与zIndex有关，与elevation无关
 ~~~~
-
-##### 
+##### shadow 阴影
+###### shadowColor
+~~~~
+shadowColor: "#000"
+~~~~
+###### shadowOffset
+~~~~
+shadowOffset: { width: 0, height: 2 }
+~~~~
+###### shadowOpacity
+~~~~
+shadowOpactity: 0.3
+~~~~
