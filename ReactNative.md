@@ -157,9 +157,9 @@ import getValue from "../../../servers/getValue";
 
 const { getValueImplement, getValueAbort } = getValue("/app/get_some_value");//先结构出来
 useMemo(() => {
-getValueImplement().then((data) => {
-    setLxy(data);
-  });
+   getValueImplement().then((data) => {
+      setLxy(data);
+   });
 }, []);
 
 ~~~~
