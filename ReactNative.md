@@ -149,9 +149,6 @@ const getValue = (url) => {
     getValueAbort: () => controller.abort(),//终止
   };
 };
-
-export default getValue;
-
 export default getValue;
 ~~~~
 ##### 使用接口
