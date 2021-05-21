@@ -125,8 +125,9 @@ const { URL } = config;
 const get = (url, signal) => {
   return new Promise((resolve, reject) => {
     fetch(`${URL}${url}`, {
-      method: "get",
+      method: "get",//get请求
       signal,//用于终止请求
+      //还有参数：headers、body、cache、mode、redirect、referrer
     }).then(res => {
       res.json().then(resolve).catch(reject);
     }).catch(reject);
@@ -141,30 +142,37 @@ export default instance;
 ~~~~jsx
 import instance from "../fetch";
 
-let getValueAbort = null;
 const getValue = (url) => {
   const controller = new AbortController();
-  getValueAbort = () => controller.abort();//用于终止请求
-  return instance.get(url, controller.signal);
+  return {
+    getValueImplement: () => instance.get(url, controller.signal),//执行
+    getValueAbort: () => controller.abort(),//终止
+  };
 };
-export { getValueAbort };
+
+export default getValue;
+
 export default getValue;
 ~~~~
 ##### 使用接口
 ~~~~jsx
-import getValue, { getValueAbort } from "../../../servers/getValue";
+import getValue from "../../../servers/getValue";
 
+const { getValueImplement, getValueAbort } = getValue("/app/get_some_value");//先结构出来
 useMemo(() => {
-  getValue("/app/get_some_value").then((data) => {
+getValueImplement().then((data) => {
     setLxy(data);
   });
 }, []);
+
 ~~~~
 ##### 关闭接口，中断请求
 ~~~~jsx
+const { getValueImplement, getValueAbort } = getValue("/app/get_some_value");
+
 useEffect(() => {
   return () => {
-    getValueAbort();
+    getValueAbort();//卸载时调用
   };
 }, []);
 ~~~~
