@@ -64,7 +64,7 @@ index: 2,//层级关系
 elevation: 2,//和zIndex一起做层级关系
 
 1.对于android:
-既没有ZIndex属性，又没有elevation属性      由其摆放位置决定的，放在下面的组件会在上层
+既没有zIndex属性，又没有elevation属性      由其摆放位置决定的，放在里面的组件会在上层
 两个组件只有zIndex没有elevation属性时      zIndex大的在上层
 两个组件有elevation属性                   elevation大的在上层
 两个组件既有zIndex属性elevation属性        以elevation为准
@@ -74,14 +74,97 @@ elevation: 2,//和zIndex一起做层级关系
 ~~~~
 ##### shadow 阴影
 ###### shadowColor
-~~~~
+~~~~jsx
 shadowColor: "#000"
 ~~~~
 ###### shadowOffset
-~~~~
+~~~~jsx
 shadowOffset: { width: 0, height: 2 }
 ~~~~
 ###### shadowOpacity
-~~~~
+~~~~jsx
 shadowOpactity: 0.3
+~~~~
+
+#### 页面的渲染
+##### 定义数据
+~~~~jsx
+const [lxy, setLxy] = useState([]);
+~~~~
+##### 获取数据
+~~~~jsx
+useMemo(() => {
+  fetch("http://192.168.31.91:3001/app/get_some_value").then(res => {
+    res.json().then(data => {
+        setLxy(data);
+      }
+    );
+  });
+}, []);
+~~~~
+##### 渲染数据
+~~~~jsx
+<View>
+  {
+    lxy.map((item, index) => {
+      return(
+        <Text key={index}>{item.name}</Text>
+      )
+    })
+  }
+</View>
+~~~~
+
+#### fetch请求
+##### 定义get请求
+~~~~jsx
+import config from "../../config";
+
+const { URL } = config;
+//get请求
+const get = (url, signal) => {
+  return new Promise((resolve, reject) => {
+    fetch(`${URL}${url}`, {
+      method: "get",
+      signal,//用于终止请求
+    }).then(res => {
+      res.json().then(resolve).catch(reject);
+    }).catch(reject);
+  });
+};
+const instance = {
+  get,
+};
+export default instance;
+~~~~
+##### 定义每一个get接口
+~~~~jsx
+import instance from "../fetch";
+
+let getValueAbort = null;
+const getValue = (url) => {
+  const controller = new AbortController();
+  getValueAbort = () => controller.abort();//用于终止请求
+  return instance.get(url, controller.signal);
+};
+export { getValueAbort };
+export default getValue;
+~~~~
+##### 使用接口
+~~~~jsx
+import getValue, { getValueAbort } from "../../../servers/getValue";
+
+useMemo(() => {
+  getValue("/app/get_some_value").then((data) => {
+    setLxy(data);
+  });
+}, []);
+~~~~
+##### 关闭接口，中断请求
+~~~~jsx
+useEffect(() => {
+  return () => {
+    getValueAbort();
+  };
+}, []);
 ~~~~
