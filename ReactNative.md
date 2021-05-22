@@ -114,3 +114,23 @@ useMemo(() => {
   }
 </View>
 ~~~~
+#### 十.react-native-antd的引入
+##### 1.install antd
+~~~~
+npm install @ant-design/react-native --save
+npm install react-native-vector-icons --save
+react-native link @ant-design/react-native
+react-native link @ant-design/icons-react-native
+~~~~
+##### 2.install babel
+~~~~
+npm install babel-plugin-import --save
+~~~~
+##### 根目录新建.babelrc
+~~~~js
+{
+  "plugins": [
+    ["import", { libraryName: "@ant-design/react-native" }] // 与Web平台的区别是不需要设置 style
+  ]
+}
+~~~~
