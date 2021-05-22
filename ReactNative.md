@@ -1,20 +1,20 @@
 ### React-Native
-#### 创建react-native项目
+#### 一.创建react-native项目
 ~~~~
 react-native init 项目名称 react-native版本
 react-native init ablums --version react-native@0.42
 ~~~~
-#### react-native-cli手脚架创建react-native项目
+#### 二.react-native-cli手脚架创建react-native项目
 ~~~~
 sudo npm install -g react-native-cli
 ~~~~
-#### 启动项目
+#### 三.启动项目
 ~~~~
 react-native run-ios
 react-native run-android
 ~~~~
-#### command+D -> 打开控制台
-#### 项目的基本步骤
+#### 四.command+D -> 打开控制台
+#### 五.项目的基本步骤
 ##### 1.导入React和ReactNative
 ~~~~jsx
 import React from "react";
@@ -32,7 +32,7 @@ const App = () => {
 ~~~~javascript
 AppRegistry.registerComponent(appName, () => App);
 ~~~~
-#### React和ReactNative的比较
+#### 六.React和ReactNative的比较
 ##### React
 ~~~~
 React定义了Component是什么，以及它的工作模式
@@ -43,11 +43,11 @@ React定义并实现了让不同Component交互与协作机制
 主要用于将Component的输出显示在具体的设备上
 提供了平台无关的各种预定义组件，比如:View,Text,Image,ListView等
 ~~~~
-#### View 
+#### 七.View 
 ~~~~
 是reactNative相当于HTML里的div
 ~~~~
-#### ReactNative的样式
+#### 八.ReactNative的样式
 ##### FlexBox 布局 不用写display
 ###### justifyContent
 ~~~~
@@ -86,7 +86,7 @@ shadowOffset: { width: 0, height: 2 }
 shadowOpactity: 0.3
 ~~~~
 
-#### 页面的渲染
+#### 九.页面的渲染
 ##### 定义数据
 ~~~~jsx
 const [lxy, setLxy] = useState([]);
@@ -113,63 +113,4 @@ useMemo(() => {
     })
   }
 </View>
-~~~~
-
-#### fetch请求
-##### 定义get请求
-~~~~jsx
-import config from "../../config";
-
-const { URL } = config;
-//get请求
-const get = (url, signal) => {
-  return new Promise((resolve, reject) => {
-    fetch(`${URL}${url}`, {
-      method: "get",//get请求
-      signal,//用于终止请求
-      //还有参数：headers、body、cache、mode、redirect、referrer
-    }).then(res => {
-      res.json().then(resolve).catch(reject);
-    }).catch(reject);
-  });
-};
-const instance = {
-  get,
-};
-export default instance;
-~~~~
-##### 定义每一个get接口
-~~~~jsx
-import instance from "../fetch";
-
-const getValue = (url) => {
-  const controller = new AbortController();
-  return {
-    getValueImplement: () => instance.get(url, controller.signal),//执行
-    getValueAbort: () => controller.abort(),//终止
-  };
-};
-export default getValue;
-~~~~
-##### 使用接口
-~~~~jsx
-import getValue from "../../../servers/getValue";
-
-const { getValueImplement, getValueAbort } = getValue("/app/get_some_value");//先结构出来
-useMemo(() => {
-   getValueImplement().then((data) => {
-      setLxy(data);
-   });
-}, []);
-
-~~~~
-##### 关闭接口，中断请求
-~~~~jsx
-const { getValueImplement, getValueAbort } = getValue("/app/get_some_value");
-
-useEffect(() => {
-  return () => {
-    getValueAbort();//卸载时调用
-  };
-}, []);
 ~~~~
