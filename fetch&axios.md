@@ -1,16 +1,26 @@
+### fetch和axios
 #### 一.fetch请求（app和web都可以使用）
+~~~~
+不需要引入
+~~~~
 ##### 1.定义请求
 ~~~~jsx
 import config from "../../config";
 
 const { URL } = config;
 //请求封装
-const request = (method ,url, signal) => {
+const request = (method ,url, signal, body) => {
   return new Promise((resolve, reject) => {
     fetch(`${URL}${url}`, {
+      headers: {//规定了参数是json
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        //还可以把token带过去
+      }
       method,//请求类型
       signal,//用于终止请求
-      //还有参数：headers、body、cache、mode、redirect、referrer
+      body,//请求体
+      //还有参数：cache、mode、redirect、referrer
     }).then(res => {
       res.json().then(resolve).catch(reject);
     }).catch(reject);
@@ -18,14 +28,14 @@ const request = (method ,url, signal) => {
 };
 export default request;
 ~~~~
-##### 2.定义一个get接口
+##### 2.定义一个post接口
 ~~~~jsx
 import request from "../fetch";//从1里引入request
 
-const getValue = (url) => {
+const getValue = (body) => {
   const controller = new AbortController();
   return {
-    getValueImplement: () => request("get", url, controller.signal),//执行
+    getValueImplement: () => request("post", "/app/get_some_value", controller.signal, JSON.stringify(body)),//执行(注：body转json)
     getValueAbort: () => controller.abort(),//终止
   };
 };
@@ -35,7 +45,7 @@ export default getValue;
 ~~~~jsx
 import getValue from "../../../servers/getValue";//从2里引入
 
-const { getValueImplement, getValueAbort } = getValue("/app/get_some_value");//先结构出来
+const { getValueImplement, getValueAbort } = getValue({ search_value: value, page: 1});//先结构出来
 useMemo(() => {
    getValueImplement().then((data) => {
       setLxy(data);
@@ -56,6 +66,9 @@ useEffect(() => {
 ~~~~
 
 #### 二.axios请求（web端使用）
+~~~~
+需要引入
+~~~~
 ##### 1.定义axios
 ~~~~js
 import axios, { CancelToken } from "axios";
