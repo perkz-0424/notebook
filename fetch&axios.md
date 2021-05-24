@@ -1,5 +1,5 @@
 #### 一.fetch请求（app和web都可以使用）
-##### 1.定义get请求
+##### 1.定义请求
 ~~~~jsx
 import config from "../../config";
 
@@ -18,7 +18,7 @@ const request = (method ,url, signal) => {
 };
 export default request;
 ~~~~
-##### 2.定义每一个get接口
+##### 2.定义一个get接口
 ~~~~jsx
 import request from "../fetch";//从1里引入request
 
@@ -33,7 +33,7 @@ export default getValue;
 ~~~~
 ##### 3.使用接口
 ~~~~jsx
-import getValue from "../../../servers/getValue";//从3里引入
+import getValue from "../../../servers/getValue";//从2里引入
 
 const { getValueImplement, getValueAbort } = getValue("/app/get_some_value");//先结构出来
 useMemo(() => {
