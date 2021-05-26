@@ -11,14 +11,14 @@ import CryptoJS from "crypto-js";
 const _key = CryptoJS.enc.Utf8.parse("18340313259");
 
 //加密
-const _encrypt = (msgString) => {
+const encrypt = (msgString) => {
   const iv = CryptoJS.lib.WordArray.random(16);
   const encrypted = CryptoJS.AES.encrypt(msgString, _key, { iv });
   return iv.concat(encrypted.ciphertext).toString(CryptoJS.enc.Base64);
 };
 
 //解密
-const _decrypt = (cipherTextStr) => {
+const decrypt = (cipherTextStr) => {
   const cipherText = CryptoJS.enc.Base64.parse(cipherTextStr);
   const iv = cipherText.clone();
   iv.sigBytes = 16;
@@ -30,6 +30,6 @@ const _decrypt = (cipherTextStr) => {
 };
 
 export {
-  _encrypt,
-  _decrypt
+  encrypt,
+  decrypt
 ~~~~

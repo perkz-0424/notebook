@@ -1,5 +1,5 @@
 ### redux、mobx、useReducer
-#### 一.redux（thunk）
+#### 一.redux(thunk)
 ##### 1.创建数据源
 ~~~~jsx
 const movieNames = (state = {
@@ -98,7 +98,7 @@ initHome = () => {
 
 export default connect(state => ({ state }))(Home);
 ~~~~
-#### 一.redux（saga）
+#### 一.redux(saga)(用于无状态组件)
 
 #### 二.useReducer
 ~~~~

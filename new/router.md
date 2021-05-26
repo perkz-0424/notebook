@@ -19,8 +19,19 @@ const Routes = ({ routers, fallback }) => {
   const createAllRoutes = [];
   (function createRoute (routers) {
     /**这个可以做权限的判断，如token或者是分级用户权限**/
-    createAllRoutes.push({ ...routers });
-    routers.children && routers.children.forEach(item => {
+    const _routers = { ...routers }
+    if(_routers.level === "0" && localStorage.getItem("user_level") !== "full_member"){//模块等级为会员级，且不是会员跳转至开通会员页面开通会员
+      Object.assign(_routers, {
+        redirect: "/membership",
+      })
+    }
+    if(!getCookieToken()){//没有登录先登录
+      Object.assign(_routers, {
+        redirect: "/login",
+      })
+    }
+    createAllRoutes.push({ ..._routers });
+    _routers.children && _routers.children.forEach(item => {
       createRoute(item);
     });
   })(routers);
@@ -84,3 +95,59 @@ export default App;
 ~~~~
 
 #### 二.react-router
+##### 1.创建路由
+~~~~jsx
+const HomePage = lazy(() => import("./components/Home"));
+const HomeStatic = lazy(() => import("./components/HomeStatic"));
+
+export default {
+  path: "home",
+  component: Home,
+  route_name: "首页",
+  indexRoute: {
+    onEnter: (nextState, replace) => replace("/home/index"),
+  },
+  childRoutes: [
+    {
+      path: "index",
+      component: HomePage,
+      route_name: '首页',
+    },
+    {
+      path: "staticHome",
+      component: HomeStatic,
+      route_name: "静态首页",
+    }
+  ],
+};
+~~~~
+##### 2.创建集合
+~~~~jsx
+import App from "./App";
+import Home from "./Home";
+
+const NavRoutes = [ Home ];
+const Routes = {
+  path: "/",
+  component: App,
+  onEnter: (nextState, replace) => {
+    if (!getCookieToken()) { //根据是否存在token
+      replace({
+        pathname: "/auth/login",//跳转到登录页面
+        query: {
+          ...nextState.location.query,
+          from: nextState.location.pathname,//是从哪个页面跳到登录页面
+        },
+      });
+    }
+  },
+  childRoutes: NavRoutes,
+};
+~~~~
+##### 3.放入到react-router里
+~~~~jsx
+import { browserHistory, Router } from "react-router";
+import Routes from "./routes";
+
+<Router history={browserHistory} routes={Routes}/>
+~~~~
