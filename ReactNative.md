@@ -134,3 +134,165 @@ npm install babel-plugin-import --save
   ]
 }
 ~~~~
+#### 十一.主题颜色
+###### 1.准备两个主题的文件(一个暗色、一个亮色)
+~~~~
+dark.js和light.js
+~~~~
+###### 2.将颜色文件、改变颜色函数、颜色主题的名字放在Context里
+~~~~jsx
+import React, { useState } from "react";
+import lightAntdStyle from "../../assets/style/theme/light";
+import darkAntdStyle from "../../assets/style/theme/dark";
+
+const ThemeContext = React.createContext();
+const Provider = ThemeContext.Provider;
+const themes = { "light": lightAntdStyle, "dark": darkAntdStyle, };
+const Theme = ({ children }) => {
+  const [theme, changeTheme] = useState("light");
+  return (<Provider value={{ theme: themes[theme], themeName: theme, changeTheme }}>{children}</Provider>);
+};
+
+export { ThemeContext };
+export default Theme;
+~~~~
+###### 3.Theme包裹整个App
+~~~~jsx
+const Root = () => {
+  return (
+    <Theme><App/></Theme>
+  )
+};
+~~~~
+###### 4.添加antd-mobile主题
+~~~~jsx
+import { Provider } from "@ant-design/react-native";
+import { ThemeContext } from "./src/components/Theme/Theme";
+
+const App = () => {
+  const { theme } = useContext(ThemeContext);//主题
+  return (
+      <Provider theme={theme}><Home/></Provider>
+  );
+};
+~~~~
+###### 5.添加自定义颜色
+~~~~jsx
+import React, { useState, useContext } from "react";
+import { ThemeContext } from "../../../components/Theme/Theme";
+
+const { theme, themeName } = useContext(ThemeContext);//主题
+
+//使用：backgroundColor: theme.background_color,
+
+//如果是antd-mobile组件要加上key（因为antd-mobile组件渲染）
+<View style={style.header} key={themeName}>
+    <SearchBar
+      style={style.searchBar}
+      placeholder="搜索你想看的"
+      value={searchValue}
+      onChange={searchChange}
+      onSubmit={searchSubmit}
+      onCancel={searchCancel}
+    />
+</View>
+~~~~
+###### 6.改变主题
+~~~~jsx
+const { changeTheme, theme, themeName } = useContext(ThemeContext);
+changeTheme("dark");
+changeTheme("light");
+~~~~
+#### 十二.Image
+~~~~jsx
+//Image必须是有宽高，可以根据高度用flex去自适应宽度
+<Image
+   source={{ uri: "图片的引用地址" }}
+   style={{ height: 200, flex: 1 }}
+/>
+~~~~
+
+#### 十三.ScrollView
+~~~~
+如果使用了ScrollView，那最顶端view必须是以flex形式存在
+~~~~
+~~~~jsx
+<ScrollView style={style.bodyStyle}>
+  {
+    props.searchResult.map((item, index) => {
+      return (
+        <View key={index} style={style.card}>
+          <Text style={{ color: theme.font_color }}>{item.title}</Text>
+        </View>
+      );
+    })
+  }
+</ScrollView>
+~~~~
+~~~~jsx
+//最外层的View
+<View style={{ flex: 1 }}></View>
+~~~~
+#### 十四.按钮Button
+~~~~
+react-native官方有Button，也可以自己写Button
+~~~~
+~~~~jsx
+import React, { useContext } from "react";
+import { Text, TouchableOpacity } from "react-native";
+import { ThemeContext } from "../../store/Theme/Theme";
+
+const Button = props => {
+  const { theme } = useContext(ThemeContext);
+  const styles = {
+    buttonStyle: {
+      borderWidth: 1,
+      borderRadius: 1,
+      padding: 8,
+      borderColor: theme.button_border_color,
+      width: props.width
+    },
+    text: {
+      textAlign: "center",
+      fontSize: 14,
+      color: theme.button_border_color
+    }
+  };
+  return (
+    <TouchableOpacity style={styles.buttonStyle} onPress={props.onPress}>
+      <Text style={styles.text}>
+        {props.children}
+      </Text>
+    </TouchableOpacity>
+  );
+};
+export default Button;
+~~~~
+~~~~jsx
+<Button onPress={LinkingToBaidu}>Baidu</Button>
+~~~~
+#### 十五.Linking跳转（可以跳转别的app）
+~~~~jsx
+import { Linking } from "react-native";
+
+Linking.openURL("https://www.baidu.com").then(()=>{});
+~~~~
+
+#### 十六.Redux（js库）
+~~~~
+1.Action:一个JS对象，用于告知Reducer如何改变数据
+2.Reducer:返回数据的函数
+3.State:应用程序中的具体数据
+4.Store:掌管应用程序数据的对象
+~~~~
+~~~~
+                                     掌管应用程序数据的对象
+                           _________________Store__________________
+                          |                                        |                 
+                          |                                        |
+                          |                                        |
+         Action -----—————|———--->Reducer-----—————--->State       |                    
+一个JS对象，用于告知Reducer  |     返回数据的函数     应用程序中的具体数据  |
+       如何改变数据         |                                        |                   
+                          |_______________________________________ |
+~~~~
