@@ -290,3 +290,112 @@ Linking.openURL("https://www.baidu.com").then(()=>{});
        如何改变数据         |                                   |                   
                           \___________________________________/
 ~~~~
+
+#### 十七.官方组件
+##### 1.ActivityIndicator(loading动态图)
+~~~~jsx
+<ActivityIndicator 
+  size="small" //尺寸 可以是large、small也可以是number
+  color="#0000ff" //颜色 android没有默认色、ios默认色是#999
+  //animating 是否动画 默认是true
+  // hidesWhenStopped 在animating为 false 的时候，是否要隐藏指示器（默认为 true）。如果animating和hidesWhenStopped都为 false，则显示一个静止的指示器。（ios）
+/>
+~~~~
+##### 2.Button
+~~~~jsx
+<Button
+  onPress={() => {}} //按下事件 fn
+  title="按钮" //按钮里的文字 str
+  disabled={false} //是否禁用 bool true为禁用
+  color="#f40" //文本的颜色(iOS)，或是按钮的背景色(Android)
+  //accessibilityLabel 用于给残障人士显示的文本（比如读屏应用可能会读取这一内容）str
+/>
+~~~~
+##### 3.FlatList 高效渲染数据列表，继承了ScrollView
+~~~~jsx
+<FlatList
+  data={value} //数据源
+  renderItem={({ item, index }) =><TouchableOpacity key={index} onPress={() => {}}><Image uri={item["imageSrc"]}/></TouchableOpacity>} //数据渲染
+  keyExtractor={item => item.name} //key
+/>
+~~~~
+##### 4.ImageBackground 背景图片
+~~~~jsx
+<View style={{ flex: 1, flexDirection: "column" }}>
+  <ImageBackground
+    style={{ flex: 1, resizeMode: "cover", justifyContent: "center" }}
+    source={{ uri: "https://zh-hans.reactjs.org/logo-og.png" }}
+   >
+    <Text>
+      React Native
+    </Text>
+  </ImageBackground>
+</View>
+~~~~
+##### 5.KeyboardAvoidingView 根据弹出的键盘调整height或者底部padding以免被挡住
+~~~~jsx
+<KeyboardAvoidingView
+  behavior={Platform.OS === "ios" ? "padding" : "height"} //三种值height、position、padding
+  style={{ flex: 1 }}
+  //contentContainerStyle 如果设定 behavior 值为'position'，则会生成一个 View 作为内容容器。此属性用于指定此内容容器的样式。
+  //enabled 是否启用 KeyboardAvoidingView bool
+  //keyboardVerticalOffset 有时候应用离屏幕顶部还有一些距离（比如状态栏等等），利用此属性来补偿修正这段距离。
+>
+  <Header searchSubmit={() => {}}/>
+</KeyboardAvoidingView>
+~~~~
+##### 6.Modal
+~~~~jsx
+<Modal
+  animationType="slide"
+  transparent={true}
+  visible={false}
+>
+  <Text>Hello World!</Text>
+</Modal>
+~~~~
+##### 7.Pressable 长按
+~~~~jsx
+<Pressable
+  onPress={() => {}}
+  //android_disableSound bool是否有按压的声音
+  //android_ripple RippleConfig 使用并配置 Android 波纹效果。
+  //children 接收按压状态布尔值的子节点
+  //delayLongPress 从 onPressIn 触发到 onLongPress 被调用的时间间隔（毫秒）
+  //disabled 是否禁用按压行为
+  //hitSlop 设置元素能够检测到按压动作的额外距离
+  //onLongPress 在 onPressIn 持续超过 500 毫秒后调用
+  //onPressIn 在 onPressOut 和 onPress 之前， 按压后立即调用
+  //onPressOut 松开手后调用
+  //pressRetentionOffset 在 onPressOut 被触发前，view 额外的有效触控距离
+>
+...
+</Pressable>
+~~~~
+~~~~
+android_ripple 属性的波纹效果配置
+ 1.color color 定义波纹的颜色
+ 2.borderless bool 定义波纹效果是否包含边框
+ 3.radius num 定义波纹的半径
+~~~~
+##### 8.RefreshControl 用在ScrollView、FlatList里用于下拉刷新
+~~~~jsx
+<RefreshControl 
+  refreshing={true}//视图是否应该在刷新时显示指示器
+  onRefresh={() => {}}//下拉回调
+  //colors android array of color 指定至少一种颜色用来绘制刷新指示器
+  //enabled bool android 指定是否要启用刷新指示器
+  //progressBackgroundColor color android 指定刷新指示器的背景色
+  //progressViewOffset num android 指定刷新指示器的垂直起始位置(top offset)。
+  //size enum(RefreshLayoutConsts.SIZE.DEFAULT, RefreshLayoutConsts.SIZE.LARGE) android 指定刷新指示器的大小
+  //tintColor color 指定刷新指示器的颜色 ios
+  //title str ios 指定刷新指示器下显示的文字
+  //titleColor color 指定刷新指示器下显示的文字的颜色 ios 
+/>
+~~~~
+#### 十八.官方API
+##### 1.Platform.OS
+~~~~
+判断是不是ios
+~~~~
+
