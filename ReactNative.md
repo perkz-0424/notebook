@@ -319,7 +319,36 @@ Linking.openURL("https://www.baidu.com").then(()=>{});
   keyExtractor={item => item.name} //key
 />
 ~~~~
-##### 4.ImageBackground 背景图片
+##### 4.SectionList，支持分组的头部组件，继承了VirtualizedList
+~~~~jsx
+//和FlatList用法差不多
+<SectionList
+  sections={value}
+  keyExtractor={(item, index) => item + index}
+  renderItem={({ item }) => <Item title={item} />}
+  renderSectionHeader={({ section: { title } }) => (<Text style={styles.header}>{title}</Text>)}
+/>
+~~~~
+##### 5.ScrollView
+~~~~
+如果使用了ScrollView，那最顶端view必须是以flex形式存在
+~~~~
+~~~~jsx
+<ScrollView style={style.bodyStyle}>
+  {
+    props.searchResult.map((item, index) => {
+      return (
+        <View key={index} style={style.card}>
+          <Text style={{ color: theme.font_color }}>{item.title}</Text>
+        </View>
+      );
+    })
+  }
+</ScrollView>
+~~~~
+##### 6.VirtualizedList SectionList和FlatList的底层实现,渲染固定区域的组件，离开区域则不渲染
+
+##### 7.ImageBackground 背景图片
 ~~~~jsx
 <View style={{ flex: 1, flexDirection: "column" }}>
   <ImageBackground
@@ -332,7 +361,7 @@ Linking.openURL("https://www.baidu.com").then(()=>{});
   </ImageBackground>
 </View>
 ~~~~
-##### 5.KeyboardAvoidingView 根据弹出的键盘调整height或者底部padding以免被挡住
+##### 8.KeyboardAvoidingView 根据弹出的键盘调整height或者底部padding以免被挡住
 ~~~~jsx
 <KeyboardAvoidingView
   behavior={Platform.OS === "ios" ? "padding" : "height"} //三种值height、position、padding
@@ -344,7 +373,7 @@ Linking.openURL("https://www.baidu.com").then(()=>{});
   <Header searchSubmit={() => {}}/>
 </KeyboardAvoidingView>
 ~~~~
-##### 6.Modal
+##### 9.Modal
 ~~~~jsx
 <Modal
   animationType="slide"
@@ -354,7 +383,7 @@ Linking.openURL("https://www.baidu.com").then(()=>{});
   <Text>Hello World!</Text>
 </Modal>
 ~~~~
-##### 7.Pressable 长按
+##### 10.Pressable 长按
 ~~~~jsx
 <Pressable
   onPress={() => {}}
@@ -378,7 +407,12 @@ android_ripple 属性的波纹效果配置
  2.borderless bool 定义波纹效果是否包含边框
  3.radius num 定义波纹的半径
 ~~~~
-##### 8.RefreshControl 用在ScrollView、FlatList里用于下拉刷新
+##### 11.RefreshControl 用在ScrollView、FlatList里用于下拉刷新
+~~~~jsx
+<FlatList
+  refreshControl={<RefreshControl refreshing={false} onRefresh={() => {}}/>}
+/>
+~~~~
 ~~~~jsx
 <RefreshControl 
   refreshing={true}//视图是否应该在刷新时显示指示器
@@ -393,9 +427,46 @@ android_ripple 属性的波纹效果配置
   //titleColor color 指定刷新指示器下显示的文字的颜色 ios 
 />
 ~~~~
-#### 十八.官方API
-##### 1.Platform.OS
+##### 12.TouchableHighlight
 ~~~~
-判断是不是ios
+触摸颜色可变化
+~~~~
+##### 13.TouchableOpacity
+~~~~
+触摸透明度变化
 ~~~~
 
+#### 十八.官方API
+##### 1.Platform.OS
+~~~~jsx
+//判断是不是ios
+Platform.OS === "ios"
+~~~~
+##### 2.AccessibilityInfo
+~~~~jsx
+//判断用户是否在读屏
+~~~~
+###### （1）AccessibilityInfo.fetch() 查询屏幕阅读器当前是否启用
+~~~~jsx
+AccessibilityInfo.fetch().done((bool) => {
+  //bool为true则正在读屏，反之则不再读屏
+})
+~~~~
+###### (2) AccessibilityInfo.addEventListener(eventName, handler) 监听是否读屏
+~~~~jsx
+AccessibilityInfo.addEventListener("change", handler); //change也可以是announcementFinished用于ios
+const handler = (e) => {console.log(e)} //返回读屏是否启用的布尔值
+~~~~
+###### (3) AccessibilityInfo.setAccessibilityFocus() 将可访问性焦点设置为反应组件 ios
+###### (4) AccessibilityInfo.removeEventListener(eventName, handler) 删除事件处理程序
+
+##### 3.Alert 弹框
+~~~~jsx
+Alert.alert(title, message?, buttons?, options?, type?)
+~~~~
+~~~~
+title: 弹出的字
+message:对话框标题下会显示一条可选消息
+buttons:按钮
+~~~~
+##### 4.Animated 流畅动画 View、Text、Image、ScrollView、FlatList和SectionList可以使用
