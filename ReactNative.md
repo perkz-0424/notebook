@@ -4,6 +4,9 @@
 react-native init 项目名称 react-native版本
 react-native init ablums --version react-native@0.42
 ~~~~
+~~~~
+cd到ios文件下 pod install下载ios依赖包（会出现卡顿，多下几次）
+~~~~
 #### 二.react-native-cli手脚架创建react-native项目
 ~~~~
 sudo npm install -g react-native-cli
@@ -118,9 +121,9 @@ useMemo(() => {
 ##### 1.install antd
 ~~~~
 npm install @ant-design/react-native --save
-npm install react-native-vector-icons --save
+npm install react-native-vector-icons --savereac 
 react-native link @ant-design/react-native
-react-native link @ant-design/icons-react-native
+react-native link @ant-design/react-native-vector-icons
 ~~~~
 ##### 2.install babel
 ~~~~
@@ -437,7 +440,7 @@ android_ripple 属性的波纹效果配置
 ~~~~
 
 #### 十八.官方API
-##### 1.Platform.OS
+##### 1.Platform
 ~~~~jsx
 //判断是不是ios
 Platform.OS === "ios"
