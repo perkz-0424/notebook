@@ -12,8 +12,7 @@ npm i --save-dev tradle/rn-nodeify
 "postinstall": "yarn nodeify"
 ~~~~
 ~~~~
-#跑nodeify
-yarn nodeify
+#运行nodeify：yarn nodeify
 ~~~~
 ~~~~
 这样就有一个shim.js文件
