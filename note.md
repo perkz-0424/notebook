@@ -48,3 +48,5 @@ componentWillUnmount() {
   }
 ~~~~
 ###### 标题在固定宽里两端对齐  text-align-last: justify;
+
+###### 加载同一模块的不同版本  npm install echarts4@npm:echarts@^4.7.0
