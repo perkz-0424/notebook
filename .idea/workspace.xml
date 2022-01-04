@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="8dc7d650-e0bf-44a1-8f3d-2132e7cc0738" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReactNative.md" beforeDir="false" afterPath="$PROJECT_DIR$/ReactNative.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/note.md" beforeDir="false" afterPath="$PROJECT_DIR$/note.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,6 +53,8 @@
       <workItem from="1620821200903" duration="468000" />
       <workItem from="1620986043154" duration="43000" />
       <workItem from="1621408090834" duration="730000" />
+      <workItem from="1640764014252" duration="89000" />
+      <workItem from="1641276711390" duration="818000" />
     </task>
     <servers />
   </component>

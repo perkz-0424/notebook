@@ -1,4 +1,3 @@
-
 ###### window.location.reload刷新页面
 ###### process.nexttick()ES6定时器
 ###### string.includes(searchvalue, start)查找是否含有子字符串
@@ -11,42 +10,74 @@
 ###### 排序arr.sort((a,b)=>{return a.s-b.s})
 ###### 用scroll({ top: elOffsetTop, behavior: "smooth" });代替el.scrollIntoView({ behavior: "smooth" });滚动条滚动到可视区域
 ###### 监听esc键盘事件用不用onkeydown，onkeyup，onkeypress，用onresize去监听
+###### 标题在固定宽里两端对齐  text-align-last: justify;
+###### 加载同一模块的不同版本  npm install echarts4@npm:echarts@^4.7.0
 
 ###### webWorker:
-~~~~jsx
-//开始获取验证码
-getPhoneOrMailVerification = () => {
-    this.setState({
-      startTime60s: true
-    },this.waitStartTime60s)
-  }
+~~~~ts
+/**
+ * 新开线程处理倒计时任务
+ * 定义新线程：const worker = newWorkerForTime(60);
+ * 通信传值：worker.onmessage = ({ data }) => {};
+ * 杀死线程：worker.terminate();
+ **/
+const newWorkerForTimes = (time: number): Worker => {
+  const webWorkerFile: string = `
+     let time = ${time};
+     const interval = setInterval(() => {
+        postMessage(--time);
+        time === 0 && clearInterval(interval);
+     }, 1000);`;
+  const file = new Blob([webWorkerFile]); //将代码转化成文件
+  return new Worker(window.URL.createObjectURL(file)); //将文件放入到新的线程中
+};
 
-  //验证码60秒后可重新获取
-waitStartTime60s = () => {
-    const url = new Blob([this.startTimeFile]);
-    this.worker = new Worker(window.URL.createObjectURL(url));
-    this.worker.onmessage = ({ data }) => {
-      console.log(data);
-    };
+export default newWorkerForTimes;
+~~~~
+###### 睡眠
+~~~~js
+function sleep(time) {
+  return new Promise((resolve) => setTimeout(resolve, time))
 }
 ~~~~
-~~~~jsx
-//web新新线程
-this.startTimeFile = `
-      let time = 60;
-      const time60s = setInterval(() => {
-        postMessage(--time);
-        time === 0 && clearInterval(time60s);
-      }, 1000);
-    `;
-    this.worker = null;
-~~~~
-~~~~jsx
-//离开页面时杀死线程
-componentWillUnmount() {
-    this.worker && this.worker.terminate()
-  }
-~~~~
-###### 标题在固定宽里两端对齐  text-align-last: justify;
+##### cookie设置
+~~~~ts
+import config from '../../config';
 
-###### 加载同一模块的不同版本  npm install echarts4@npm:echarts@^4.7.0
+export function getCookie(cookieName: string) {
+  const name = cookieName + '=';
+  const cookies = document.cookie.split(';');
+  for (let i = 0; i < cookies.length; i++) {
+    const c = cookies[i].trim();
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return '';
+}
+
+export function setCookie(cookieName: string, cookieValue: string) {
+  document.cookie = `${cookieName}=${cookieValue}; expires=Thu, 18 Dec 2043 12:00:00 GMT;domain=${config.COOKIE_DOMAIN};path=/`;
+}
+~~~~
+##### 去重
+~~~~js
+export function duplicateRemoval(data = []) {
+  const set = new Set();
+  data.forEach((item) => set.add(item));
+  return [...set];
+}
+~~~~
+##### copy
+~~~~js
+export function copyText(value) {
+  const oInput = document.createElement('input');
+  oInput.value = value;
+  document.body.appendChild(oInput);
+  oInput.select();
+  document.execCommand('Copy');
+  oInput.className = 'oInput';
+  oInput.style.display = 'none';
+  message.success('复制成功', 1);
+}
+~~~~
